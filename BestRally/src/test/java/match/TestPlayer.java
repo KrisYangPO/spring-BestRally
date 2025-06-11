@@ -1,9 +1,13 @@
 package match;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import jakarta.transaction.Transactional;
+import match.model.dto.PlayerDTO;
 import match.model.entity.Player;
 import match.repository.PlayerRepository;
 
@@ -14,9 +18,14 @@ public class TestPlayer {
 	private PlayerRepository playerRepository;
 	
 	@Test
+	@Transactional
 	public void testPlayer() {
-		Player player = playerRepository.readPlayerByUserId(2).get();
+//		Optional<Player> optplayer = playerRepository.readPlayerByUserId(2);
+//		Player player = optplayer.get();
+//		
+//		System.out.println(player.getUser().getUsername());
 		
-		System.out.println(player);
+		Optional<PlayerDTO> optPlayerDTO = playerRepository.readPlayerDTOByUserId(2);
+		System.out.println(optPlayerDTO.get());
 	}
 }

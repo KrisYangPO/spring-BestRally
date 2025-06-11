@@ -1,23 +1,25 @@
 package match.model.dto;
 
-import java.util.List;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import match.model.entity.Player;
 import match.model.entity.Team;
-import match.model.entity.TeamPlayer;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlayerDTO {
-	
+public class TeamPlayerDTO {
+
 	private Integer id;
-	private Integer level;
-	
-	private Integer userId;
-	private String username;
+	private Team team;
+	private Player player;
+	private Double winRate; 
+	private Integer winGame; 
+	private Integer total;
+	private Date joinTime; 
 }

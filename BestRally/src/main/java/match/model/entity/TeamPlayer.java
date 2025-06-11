@@ -26,7 +26,6 @@ public class TeamPlayer {
 	private Integer id;
 	
 	
-	
 	@ManyToOne
 	@JoinColumn(name = "team_id")
 	private Team team;
