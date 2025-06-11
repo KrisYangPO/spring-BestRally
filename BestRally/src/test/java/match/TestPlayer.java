@@ -1,5 +1,6 @@
 package match;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -18,14 +19,19 @@ public class TestPlayer {
 	private PlayerRepository playerRepository;
 	
 	@Test
-	@Transactional
 	public void testPlayer() {
 //		Optional<Player> optplayer = playerRepository.readPlayerByUserId(2);
 //		Player player = optplayer.get();
 //		
 //		System.out.println(player.getUser().getUsername());
 		
-		Optional<PlayerDTO> optPlayerDTO = playerRepository.readPlayerDTOByUserId(2);
-		System.out.println(optPlayerDTO.get());
+//		Optional<PlayerDTO> optPlayerDTO = playerRepository.readPlayerDTOByUserId(2);
+//		System.out.println(optPlayerDTO.get());
+		
+		// 找所有 player:
+		List<PlayerDTO> playerDTOs = playerRepository.findAllPlayerDTOs();
+		for (PlayerDTO p : playerDTOs) {
+			System.out.println("球員：" + p.getUsername());
+		}
 	}
 }

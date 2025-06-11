@@ -3646,3 +3646,277 @@ Where u.id =:userId
 2025-06-11T14:02:54.177+08:00  INFO 98500 --- [BestRally] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-06-11T14:02:54.177+08:00  INFO 98500 --- [BestRally] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-06-11T14:02:54.180+08:00  INFO 98500 --- [BestRally] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-11T15:49:54.288+08:00  INFO 99197 --- [BestRally] [restartedMain] match.BestRallyApplication               : Starting BestRallyApplication using Java 21.0.6 with PID 99197 (/Users/popoyang/Documents/Coding/Java_Class/JavaProject/spring-BestRally/BestRally/target/classes started by popoyang in /Users/popoyang/Documents/Coding/Java_Class/JavaProject/spring-BestRally/BestRally)
+2025-06-11T15:49:54.289+08:00  INFO 99197 --- [BestRally] [restartedMain] match.BestRallyApplication               : No active profile set, falling back to 1 default profile: "default"
+2025-06-11T15:49:54.315+08:00  INFO 99197 --- [BestRally] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-11T15:49:54.315+08:00  INFO 99197 --- [BestRally] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-11T15:49:54.596+08:00  INFO 99197 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:49:54.597+08:00  INFO 99197 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-11T15:49:54.616+08:00  INFO 99197 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.PlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:49:54.617+08:00  INFO 99197 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamPlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:49:54.617+08:00  INFO 99197 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:49:54.618+08:00  INFO 99197 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:49:54.618+08:00  INFO 99197 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 0 JDBC repository interfaces.
+2025-06-11T15:49:54.623+08:00  INFO 99197 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:49:54.623+08:00  INFO 99197 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-11T15:49:54.635+08:00  INFO 99197 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 4 JPA repository interfaces.
+2025-06-11T15:49:54.819+08:00  INFO 99197 --- [BestRally] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
+2025-06-11T15:49:54.825+08:00  INFO 99197 --- [BestRally] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-11T15:49:54.825+08:00  INFO 99197 --- [BestRally] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-11T15:49:54.890+08:00  INFO 99197 --- [BestRally] [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-06-11T15:49:54.892+08:00  INFO 99197 --- [BestRally] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-11T15:49:54.892+08:00  INFO 99197 --- [BestRally] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 577 ms
+2025-06-11T15:49:54.949+08:00  INFO 99197 --- [BestRally] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-11T15:49:54.965+08:00  INFO 99197 --- [BestRally] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-11T15:49:54.974+08:00  INFO 99197 --- [BestRally] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-11T15:49:55.056+08:00  INFO 99197 --- [BestRally] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-11T15:49:55.066+08:00  INFO 99197 --- [BestRally] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-11T15:49:55.121+08:00  INFO 99197 --- [BestRally] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@32c5ac94
+2025-06-11T15:49:55.122+08:00  INFO 99197 --- [BestRally] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-11T15:49:55.151+08:00  INFO 99197 --- [BestRally] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-11T15:49:55.449+08:00  INFO 99197 --- [BestRally] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-11T15:49:55.492+08:00  INFO 99197 --- [BestRally] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:49:55.575+08:00  INFO 99197 --- [BestRally] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-11T15:49:56.024+08:00  INFO 99197 --- [BestRally] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-11T15:49:56.040+08:00  INFO 99197 --- [BestRally] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path '/'
+2025-06-11T15:49:56.044+08:00  INFO 99197 --- [BestRally] [restartedMain] match.BestRallyApplication               : Started BestRallyApplication in 1.92 seconds (process running for 2.258)
+2025-06-11T15:50:00.304+08:00  INFO 99201 --- [BestRally] [main] match.TestPlayer                         : Starting TestPlayer using Java 21.0.6 with PID 99201 (started by popoyang in /Users/popoyang/Documents/Coding/Java_Class/JavaProject/spring-BestRally/BestRally)
+2025-06-11T15:50:00.305+08:00  INFO 99201 --- [BestRally] [main] match.TestPlayer                         : No active profile set, falling back to 1 default profile: "default"
+2025-06-11T15:50:00.521+08:00  INFO 99201 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:50:00.522+08:00  INFO 99201 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-11T15:50:00.534+08:00  INFO 99201 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.PlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:50:00.534+08:00  INFO 99201 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamPlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:50:00.535+08:00  INFO 99201 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:50:00.535+08:00  INFO 99201 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:50:00.536+08:00  INFO 99201 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 JDBC repository interfaces.
+2025-06-11T15:50:00.541+08:00  INFO 99201 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:50:00.541+08:00  INFO 99201 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-11T15:50:00.555+08:00  INFO 99201 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 4 JPA repository interfaces.
+2025-06-11T15:50:00.694+08:00  INFO 99201 --- [BestRally] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-11T15:50:00.709+08:00  INFO 99201 --- [BestRally] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-11T15:50:00.719+08:00  INFO 99201 --- [BestRally] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-11T15:50:00.810+08:00  INFO 99201 --- [BestRally] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-11T15:50:00.821+08:00  INFO 99201 --- [BestRally] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-11T15:50:00.885+08:00  INFO 99201 --- [BestRally] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7c0de229
+2025-06-11T15:50:00.886+08:00  INFO 99201 --- [BestRally] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-11T15:50:00.916+08:00  INFO 99201 --- [BestRally] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-11T15:50:01.215+08:00  INFO 99201 --- [BestRally] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-11T15:50:01.256+08:00  INFO 99201 --- [BestRally] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:50:01.347+08:00  INFO 99201 --- [BestRally] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-11T15:50:01.896+08:00  INFO 99201 --- [BestRally] [main] match.TestPlayer                         : Started TestPlayer in 1.698 seconds (process running for 2.02)
+2025-06-11T15:50:02.168+08:00  INFO 99201 --- [BestRally] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:50:02.169+08:00  INFO 99201 --- [BestRally] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-11T15:50:02.172+08:00  INFO 99201 --- [BestRally] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-11T15:53:04.500+08:00  INFO 99226 --- [BestRally] [main] match.TestPlayer                         : Starting TestPlayer using Java 21.0.6 with PID 99226 (started by popoyang in /Users/popoyang/Documents/Coding/Java_Class/JavaProject/spring-BestRally/BestRally)
+2025-06-11T15:53:04.500+08:00  INFO 99226 --- [BestRally] [main] match.TestPlayer                         : No active profile set, falling back to 1 default profile: "default"
+2025-06-11T15:53:04.716+08:00  INFO 99226 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:53:04.717+08:00  INFO 99226 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-11T15:53:04.729+08:00  INFO 99226 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.PlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:53:04.729+08:00  INFO 99226 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamPlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:53:04.730+08:00  INFO 99226 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:53:04.730+08:00  INFO 99226 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:53:04.731+08:00  INFO 99226 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 JDBC repository interfaces.
+2025-06-11T15:53:04.735+08:00  INFO 99226 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:53:04.735+08:00  INFO 99226 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-11T15:53:04.748+08:00  INFO 99226 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 4 JPA repository interfaces.
+2025-06-11T15:53:04.895+08:00  INFO 99226 --- [BestRally] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-11T15:53:04.910+08:00  INFO 99226 --- [BestRally] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-11T15:53:04.921+08:00  INFO 99226 --- [BestRally] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-11T15:53:05.013+08:00  INFO 99226 --- [BestRally] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-11T15:53:05.024+08:00  INFO 99226 --- [BestRally] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-11T15:53:05.082+08:00  INFO 99226 --- [BestRally] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3dbb3fb7
+2025-06-11T15:53:05.082+08:00  INFO 99226 --- [BestRally] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-11T15:53:05.111+08:00  INFO 99226 --- [BestRally] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-11T15:53:05.411+08:00  INFO 99226 --- [BestRally] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-11T15:53:05.452+08:00  INFO 99226 --- [BestRally] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:53:05.546+08:00  INFO 99226 --- [BestRally] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-11T15:53:06.169+08:00  INFO 99226 --- [BestRally] [main] match.TestPlayer                         : Started TestPlayer in 1.776 seconds (process running for 2.094)
+2025-06-11T15:53:06.452+08:00  INFO 99226 --- [BestRally] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:53:06.453+08:00  INFO 99226 --- [BestRally] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-11T15:53:06.455+08:00  INFO 99226 --- [BestRally] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-11T15:53:52.826+08:00  INFO 99241 --- [BestRally] [main] match.TestPlayer                         : Starting TestPlayer using Java 21.0.6 with PID 99241 (started by popoyang in /Users/popoyang/Documents/Coding/Java_Class/JavaProject/spring-BestRally/BestRally)
+2025-06-11T15:53:52.827+08:00  INFO 99241 --- [BestRally] [main] match.TestPlayer                         : No active profile set, falling back to 1 default profile: "default"
+2025-06-11T15:53:53.051+08:00  INFO 99241 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:53:53.052+08:00  INFO 99241 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-11T15:53:53.067+08:00  INFO 99241 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.PlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:53:53.067+08:00  INFO 99241 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamPlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:53:53.068+08:00  INFO 99241 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:53:53.068+08:00  INFO 99241 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:53:53.069+08:00  INFO 99241 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 0 JDBC repository interfaces.
+2025-06-11T15:53:53.079+08:00  INFO 99241 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:53:53.080+08:00  INFO 99241 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-11T15:53:53.100+08:00  INFO 99241 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 4 JPA repository interfaces.
+2025-06-11T15:53:53.259+08:00  INFO 99241 --- [BestRally] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-11T15:53:53.274+08:00  INFO 99241 --- [BestRally] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-11T15:53:53.284+08:00  INFO 99241 --- [BestRally] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-11T15:53:53.381+08:00  INFO 99241 --- [BestRally] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-11T15:53:53.391+08:00  INFO 99241 --- [BestRally] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-11T15:53:53.449+08:00  INFO 99241 --- [BestRally] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@24405466
+2025-06-11T15:53:53.449+08:00  INFO 99241 --- [BestRally] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-11T15:53:53.479+08:00  INFO 99241 --- [BestRally] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-11T15:53:53.803+08:00  INFO 99241 --- [BestRally] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-11T15:53:53.845+08:00  INFO 99241 --- [BestRally] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:53:53.999+08:00  INFO 99241 --- [BestRally] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-11T15:53:54.557+08:00  INFO 99241 --- [BestRally] [main] match.TestPlayer                         : Started TestPlayer in 1.835 seconds (process running for 2.129)
+2025-06-11T15:53:54.865+08:00  INFO 99241 --- [BestRally] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:53:54.866+08:00  INFO 99241 --- [BestRally] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-11T15:53:54.868+08:00  INFO 99241 --- [BestRally] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-11T15:54:10.396+08:00  INFO 99197 --- [BestRally] [RMI TCP Connection(15)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-06-11T15:54:10.398+08:00  INFO 99197 --- [BestRally] [RMI TCP Connection(15)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-11T15:54:10.400+08:00  INFO 99197 --- [BestRally] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-11T15:54:10.402+08:00  INFO 99197 --- [BestRally] [RMI TCP Connection(15)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:54:10.403+08:00  INFO 99197 --- [BestRally] [RMI TCP Connection(15)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-11T15:54:10.406+08:00  INFO 99197 --- [BestRally] [RMI TCP Connection(15)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-11T15:54:11.335+08:00  INFO 99246 --- [BestRally] [restartedMain] match.BestRallyApplication               : Starting BestRallyApplication using Java 21.0.6 with PID 99246 (/Users/popoyang/Documents/Coding/Java_Class/JavaProject/spring-BestRally/BestRally/target/classes started by popoyang in /Users/popoyang/Documents/Coding/Java_Class/JavaProject/spring-BestRally/BestRally)
+2025-06-11T15:54:11.336+08:00  INFO 99246 --- [BestRally] [restartedMain] match.BestRallyApplication               : No active profile set, falling back to 1 default profile: "default"
+2025-06-11T15:54:11.349+08:00  INFO 99246 --- [BestRally] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-11T15:54:11.349+08:00  INFO 99246 --- [BestRally] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-11T15:54:11.552+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:54:11.552+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-11T15:54:11.563+08:00  INFO 99246 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.PlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:54:11.564+08:00  INFO 99246 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamPlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:54:11.564+08:00  INFO 99246 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:54:11.565+08:00  INFO 99246 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:54:11.565+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 JDBC repository interfaces.
+2025-06-11T15:54:11.569+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:54:11.569+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-11T15:54:11.578+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 4 JPA repository interfaces.
+2025-06-11T15:54:11.749+08:00  INFO 99246 --- [BestRally] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
+2025-06-11T15:54:11.755+08:00  INFO 99246 --- [BestRally] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-11T15:54:11.755+08:00  INFO 99246 --- [BestRally] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-11T15:54:11.815+08:00  INFO 99246 --- [BestRally] [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-06-11T15:54:11.817+08:00  INFO 99246 --- [BestRally] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-11T15:54:11.817+08:00  INFO 99246 --- [BestRally] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 467 ms
+2025-06-11T15:54:11.875+08:00  INFO 99246 --- [BestRally] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-11T15:54:11.889+08:00  INFO 99246 --- [BestRally] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-11T15:54:11.899+08:00  INFO 99246 --- [BestRally] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-11T15:54:11.970+08:00  INFO 99246 --- [BestRally] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-11T15:54:11.979+08:00  INFO 99246 --- [BestRally] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-11T15:54:12.031+08:00  INFO 99246 --- [BestRally] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5235000f
+2025-06-11T15:54:12.032+08:00  INFO 99246 --- [BestRally] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-11T15:54:12.059+08:00  INFO 99246 --- [BestRally] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-11T15:54:12.345+08:00  INFO 99246 --- [BestRally] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-11T15:54:12.379+08:00  INFO 99246 --- [BestRally] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:54:12.455+08:00  INFO 99246 --- [BestRally] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-11T15:54:12.887+08:00  INFO 99246 --- [BestRally] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-11T15:54:12.903+08:00  INFO 99246 --- [BestRally] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path '/'
+2025-06-11T15:54:12.907+08:00  INFO 99246 --- [BestRally] [restartedMain] match.BestRallyApplication               : Started BestRallyApplication in 1.69 seconds (process running for 1.917)
+2025-06-11T15:54:18.087+08:00  INFO 99248 --- [BestRally] [main] match.TestPlayer                         : Starting TestPlayer using Java 21.0.6 with PID 99248 (started by popoyang in /Users/popoyang/Documents/Coding/Java_Class/JavaProject/spring-BestRally/BestRally)
+2025-06-11T15:54:18.088+08:00  INFO 99248 --- [BestRally] [main] match.TestPlayer                         : No active profile set, falling back to 1 default profile: "default"
+2025-06-11T15:54:18.286+08:00  INFO 99248 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:54:18.287+08:00  INFO 99248 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-11T15:54:18.298+08:00  INFO 99248 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.PlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:54:18.298+08:00  INFO 99248 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamPlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:54:18.299+08:00  INFO 99248 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:54:18.300+08:00  INFO 99248 --- [BestRally] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:54:18.300+08:00  INFO 99248 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JDBC repository interfaces.
+2025-06-11T15:54:18.304+08:00  INFO 99248 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:54:18.305+08:00  INFO 99248 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-11T15:54:18.318+08:00  INFO 99248 --- [BestRally] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 4 JPA repository interfaces.
+2025-06-11T15:54:18.465+08:00  INFO 99248 --- [BestRally] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-11T15:54:18.479+08:00  INFO 99248 --- [BestRally] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-11T15:54:18.489+08:00  INFO 99248 --- [BestRally] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-11T15:54:18.574+08:00  INFO 99248 --- [BestRally] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-11T15:54:18.585+08:00  INFO 99248 --- [BestRally] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-11T15:54:18.650+08:00  INFO 99248 --- [BestRally] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@c6a692e
+2025-06-11T15:54:18.651+08:00  INFO 99248 --- [BestRally] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-11T15:54:18.681+08:00  INFO 99248 --- [BestRally] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-11T15:54:18.992+08:00  INFO 99248 --- [BestRally] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-11T15:54:19.028+08:00  INFO 99248 --- [BestRally] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:54:19.125+08:00  INFO 99248 --- [BestRally] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-11T15:54:19.777+08:00  INFO 99248 --- [BestRally] [main] match.TestPlayer                         : Started TestPlayer in 1.792 seconds (process running for 2.09)
+2025-06-11T15:54:20.069+08:00  INFO 99248 --- [BestRally] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:54:20.070+08:00  INFO 99248 --- [BestRally] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-11T15:54:20.072+08:00  INFO 99248 --- [BestRally] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-11T15:55:41.275+08:00  INFO 99246 --- [BestRally] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-06-11T15:55:41.280+08:00  INFO 99246 --- [BestRally] [Thread-5] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-11T15:55:41.286+08:00  INFO 99246 --- [BestRally] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-11T15:55:41.292+08:00  INFO 99246 --- [BestRally] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:55:41.295+08:00  INFO 99246 --- [BestRally] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-11T15:55:41.301+08:00  INFO 99246 --- [BestRally] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-11T15:55:41.346+08:00  INFO 99246 --- [BestRally] [restartedMain] match.BestRallyApplication               : Starting BestRallyApplication using Java 21.0.6 with PID 99246 (/Users/popoyang/Documents/Coding/Java_Class/JavaProject/spring-BestRally/BestRally/target/classes started by popoyang in /Users/popoyang/Documents/Coding/Java_Class/JavaProject/spring-BestRally/BestRally)
+2025-06-11T15:55:41.346+08:00  INFO 99246 --- [BestRally] [restartedMain] match.BestRallyApplication               : No active profile set, falling back to 1 default profile: "default"
+2025-06-11T15:55:41.395+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:55:41.395+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-11T15:55:41.397+08:00  INFO 99246 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.PlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:55:41.397+08:00  INFO 99246 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamPlayerRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:55:41.398+08:00  INFO 99246 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.TeamRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:55:41.398+08:00  INFO 99246 --- [BestRally] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface match.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-11T15:55:41.398+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JDBC repository interfaces.
+2025-06-11T15:55:41.399+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-11T15:55:41.399+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-11T15:55:41.402+08:00  INFO 99246 --- [BestRally] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 4 JPA repository interfaces.
+2025-06-11T15:55:41.435+08:00  INFO 99246 --- [BestRally] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
+2025-06-11T15:55:41.435+08:00  INFO 99246 --- [BestRally] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-11T15:55:41.435+08:00  INFO 99246 --- [BestRally] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-11T15:55:41.459+08:00  INFO 99246 --- [BestRally] [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-06-11T15:55:41.460+08:00  INFO 99246 --- [BestRally] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-11T15:55:41.460+08:00  INFO 99246 --- [BestRally] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 113 ms
+2025-06-11T15:55:41.473+08:00  INFO 99246 --- [BestRally] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-11T15:55:41.474+08:00  INFO 99246 --- [BestRally] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-11T15:55:41.476+08:00  INFO 99246 --- [BestRally] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-11T15:55:41.477+08:00  INFO 99246 --- [BestRally] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-06-11T15:55:41.479+08:00  INFO 99246 --- [BestRally] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1ccdef8
+2025-06-11T15:55:41.479+08:00  INFO 99246 --- [BestRally] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-06-11T15:55:41.480+08:00  INFO 99246 --- [BestRally] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 8.4.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-11T15:55:41.515+08:00  INFO 99246 --- [BestRally] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-11T15:55:41.537+08:00  INFO 99246 --- [BestRally] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:55:41.612+08:00  INFO 99246 --- [BestRally] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-11T15:55:41.618+08:00  INFO 99246 --- [BestRally] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path '/'
+2025-06-11T15:55:41.620+08:00  INFO 99246 --- [BestRally] [restartedMain] match.BestRallyApplication               : Started BestRallyApplication in 0.286 seconds (process running for 90.631)
+2025-06-11T15:55:41.621+08:00  INFO 99246 --- [BestRally] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-06-11T15:55:46.145+08:00  INFO 99246 --- [BestRally] [RMI TCP Connection(12)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-06-11T15:55:46.146+08:00  INFO 99246 --- [BestRally] [RMI TCP Connection(12)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-11T15:55:46.147+08:00  INFO 99246 --- [BestRally] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-11T15:55:46.147+08:00  INFO 99246 --- [BestRally] [RMI TCP Connection(12)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T15:55:46.148+08:00  INFO 99246 --- [BestRally] [RMI TCP Connection(12)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-06-11T15:55:46.148+08:00  INFO 99246 --- [BestRally] [RMI TCP Connection(12)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.

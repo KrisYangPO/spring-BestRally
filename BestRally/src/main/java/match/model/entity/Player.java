@@ -20,9 +20,8 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 @ToString(exclude = {"user", "teams", "teamplayers"})
 public class Player {
 	
@@ -37,6 +36,15 @@ public class Player {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", unique = true)
 	private User user;
+	
+	
+	// Constructor 
+	public Player(Integer id, Integer level, User user) {
+		this.id = id;
+		this.level = level;
+		this.user = user;
+	}
+	
 	
 	// 每個隊伍的隊長 id 就是一個球員的 id
 	@OneToMany(mappedBy = "player")
