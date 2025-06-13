@@ -2,11 +2,16 @@ package match.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import match.exception.TeamPlayerException;
+import match.exception.TeamRefreshException;
+import match.mapper.TeamMapper;
+import match.model.dto.PlayerDTO;
 import match.model.dto.PlayersOfTeamDTO;
+import match.model.dto.TeamDTO;
 import match.model.dto.TeamPlayerDTO;
 import match.model.dto.TeamsOfPlayerDTO;
 import match.model.entity.Player;
@@ -16,6 +21,7 @@ import match.repository.PlayerRepository;
 import match.repository.TeamPlayerRepository;
 import match.repository.TeamRepository;
 import match.service.TeamPlayerService;
+import match.service.TeamRefreshDataService;
 
 @Service
 public class TeamPlayerServiceImpl implements TeamPlayerService {
@@ -26,12 +32,16 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 	private PlayerRepository playerRepository;
 	@Autowired
 	private TeamRepository teamRepository;
+	@Autowired
+	private TeamMapper teamMapper;
+	@Autowired
+	private TeamRefreshDataService teamRefreshDataService;
 	
 	
 	// 新增球隊球員身份，
 	// 要先確認這個球隊編號，與球員編號都有紀錄資料在資料庫。
 	@Override
-	public void addTeamPlayer(Team team, Player player) throws TeamPlayerException {
+	public void addTeamPlayer(Team team, Player player) throws TeamPlayerException, TeamRefreshException {
 		// 確認 team 的 id 沒問題
 		Optional<Team> optTeam = teamRepository.findById(team.getId());
 		if(optTeam.isEmpty()) {
@@ -47,8 +57,19 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 		teamPlayer.setPlayer(player);
 		teamPlayer.setTeam(team);
 		teamPlayerRepository.save(teamPlayer);
+		
+		// 更新隊伍數據：
+		try {
+			teamRefreshDataService.AFTeamPlayerUpdate(team.getId());
+		
+		}catch (TeamRefreshException e) {
+			e.printStackTrace();
+			throw new TeamRefreshException("TeamPlayerService: 球員加入球隊後，更新隊伍數據失敗。" + e.getMessage());
+		}
+		
 	}
 
+	
 	// 查詢所有 teamPlayers 
 	@Override
 	public List<TeamPlayerDTO> findAllTeamPlayers() {
@@ -80,6 +101,7 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 		return teamPlayerRepository.readTeamPlayerByTeamId(teamId);
 	}
 
+	
 	// 找尋這個球員所參與的球隊。
 	@Override
 	public List<TeamPlayerDTO> findByPlayerId(Integer playerId) throws TeamPlayerException  {
@@ -128,18 +150,46 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 		teamPlayerRepository.updateMatchData(teamId, playerId, winGame, total);
 	}
 
+	
+	// 取得這個球員(playerId)所參與的球隊資訊：
 	@Override
 	public TeamsOfPlayerDTO getTeamsFromPlayer(Integer playerId) throws TeamPlayerException {
 		// Step1. 根據 playerId 找出所有 teamPlayer
 		List<TeamPlayerDTO> teamPlayerDTOs = findByPlayerId(playerId);
 		
-		// Step2. 根據他們的 teamId 找出 Team 物件
+		// Step2. 求出 playerId 的 Player Entity:
+		// 因為 Step1 會驗證 PlayerId，這裡直接轉 Entity。
+		// readPlayerDTOByPlayerId 可以取得 PlayerDTO 而非 Entity
+		PlayerDTO playerDTO = playerRepository.readPlayerDTOByPlayerId(playerId).get();
+		
+		// Step3. 根據他們 TeamPlayer 的 team 屬性找出 Team 物件，並轉成 DTO
+		List<TeamDTO> teamDTOs = teamPlayerDTOs.stream()
+				.map(p->p.getTeam())
+				.map(teamMapper::toDTO)
+				.collect(Collectors.toList());
+		
+		// Step4. 將這個 player 身份儲存至 TeamsOfPlayerDTO
+		return new TeamsOfPlayerDTO(playerDTO, teamDTOs);
 	}
+	
 
+	// 取得這個球隊(teamId)所有的參與球員資訊：
 	@Override
 	public PlayersOfTeamDTO getPlayersFromTeam(Integer teamId) throws TeamPlayerException {
-		// TODO Auto-generated method stub
-		return null;
+		// Step1. 根據 teamId 找出所有 teamPlayer，
+		// 每個 teamPlayer 就會是這球隊的所有球員。
+		// findByTeamId(teamId) 會檢測 teamId 所以下面直接 .get()
+		List<TeamPlayerDTO> teamPlayerDTOs = findByTeamId(teamId);
+		
+		// Step2. 呼叫這個 teamId 的 Team Entity，
+		TeamDTO teamDTO = teamMapper.toDTO(teamRepository.findById(teamId).get());
+		
+		// Step3. 根據這個球隊的所有 teamPlayers 找出 player data:
+		List<Player> players = teamPlayerDTOs.stream()
+				.map(p->p.getPlayer())
+				.collect(Collectors.toList());
+		
+		// Step4. 注入 PlayersOfTeamDTO:
+		return new PlayersOfTeamDTO(teamDTO, players);
 	}
-
 }

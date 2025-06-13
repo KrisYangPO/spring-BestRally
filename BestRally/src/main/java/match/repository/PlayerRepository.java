@@ -23,7 +23,7 @@ public interface PlayerRepository extends JpaRepository<Player, Integer>{
 			""")
 	public Optional<PlayerDTO> readPlayerDTOByUserId(Integer userId);
 	
-	// 透過 user_id 查詢 PlayerDTO
+	// 透過 player_id 查詢 PlayerDTO
 	@Query(value = """
 			SELECT new match.model.dto.PlayerDTO(p.id, p.level, u.id, u.username) 
 			From Player p

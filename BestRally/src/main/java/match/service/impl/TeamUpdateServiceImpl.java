@@ -65,7 +65,6 @@ public class TeamUpdateServiceImpl implements TeamUpdateService{
 		team.setTeamName(teamName);
 		teamRepository.save(team);
 	}
-
 	
 	// 部分更新：更新球隊場地
 	@Override
@@ -80,7 +79,6 @@ public class TeamUpdateServiceImpl implements TeamUpdateService{
 		team.setPlace(place);
 		teamRepository.save(team);
 	}
-
 	
 	// 部分更新：更新球隊招募狀態
 	@Override
