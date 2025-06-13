@@ -1,8 +1,7 @@
 package match.model.entity;
 
 import java.sql.Date;
-import java.util.List;
-
+import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,13 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class TeamPlayer {
@@ -36,7 +32,6 @@ public class TeamPlayer {
 	private Player player;
 	
 	
-	
 	@Column(name ="win_rate", nullable = true, columnDefinition = "double default 0.0")
 	private Double winRate; 
 	
@@ -46,6 +41,7 @@ public class TeamPlayer {
 	@Column(name = "total", nullable = true, columnDefinition = "integer default 0")
 	private Integer total;
 	
-	@Column(name = "join_time")
+	@CreationTimestamp
+	@Column(name = "join_time", updatable = false)
 	private Date joinTime; 
 }

@@ -1,7 +1,6 @@
 package match.model.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -9,6 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserCertDTO {
 	private Integer id;
 	private String username;

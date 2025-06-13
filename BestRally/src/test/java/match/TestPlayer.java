@@ -21,7 +21,9 @@ public class TestPlayer {
 	@Test
 	public void testPlayer() {
 //		Optional<Player> optplayer = playerRepository.readPlayerByUserId(2);
-//		Player player = optplayer.get();
+		Optional<Player> optPlayer = playerRepository.findById(6);
+		Player player = optPlayer.get();
+		System.out.println(player);
 //		
 //		System.out.println(player.getUser().getUsername());
 		
@@ -29,9 +31,9 @@ public class TestPlayer {
 //		System.out.println(optPlayerDTO.get());
 		
 		// 找所有 player:
-		List<PlayerDTO> playerDTOs = playerRepository.findAllPlayerDTOs();
-		for (PlayerDTO p : playerDTOs) {
-			System.out.println("球員：" + p.getUsername());
-		}
+//		List<PlayerDTO> playerDTOs = playerRepository.findAllPlayerDTOs();
+//		for (PlayerDTO p : playerDTOs) {
+//			System.out.println("球員：" + p.getUsername());
+//		}
 	}
 }

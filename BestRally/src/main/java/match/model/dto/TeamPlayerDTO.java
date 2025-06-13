@@ -22,4 +22,5 @@ public class TeamPlayerDTO {
 	private Integer winGame; 
 	private Integer total;
 	private Date joinTime; 
+	
 }

@@ -13,7 +13,9 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	
 	// @Query(value = "select id, username, hash_password, hash_salt, email, photo, admin from users where username =:userName", nativeQuery = true)
 	// 會導致 N+1 查詢
-	@Query(value = "select u from User u left join fetch u.player where u.username =:userName")
+	// @Query(value = "select u from User u left join fetch u.player where u.username =:userName")
+	@EntityGraph(attributePaths = {"player"})
+	@Query(value = "select u from User u where u.username =:userName")
 	public Optional<User> readUserByName(String userName);
 	
 	// 可以避免 N+1 查詢

@@ -39,4 +39,5 @@ public interface PlayerRepository extends JpaRepository<Player, Integer>{
 			JOIN p.user u
 			""")
 	public List<PlayerDTO> findAllPlayerDTOs();
+	
 }

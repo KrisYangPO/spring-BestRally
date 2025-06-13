@@ -46,6 +46,7 @@ public class PlayerServiceImpl implements PlayerService{
 		return optPlayerDTO.get();
 	}
 
+	
 	// 透過 playerId 找球員。
 	@Override
 	public PlayerDTO findPlayerByPlayerId(Integer playerId) throws PlayerException {
@@ -55,6 +56,7 @@ public class PlayerServiceImpl implements PlayerService{
 		}
 		return optPlayerDTO.get();
 	}
+	
 	
 	// 新增球員身份，根據 userId 並設定 level
 	@Override
@@ -99,6 +101,7 @@ public class PlayerServiceImpl implements PlayerService{
 		playerRepository.save(player);
 	}
 
+	
 	// 刪除球員。
 	@Override
 	public void removePlayer(Integer userId) {

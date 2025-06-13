@@ -1,9 +1,7 @@
 package match.service;
 
 import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
-
 import match.exception.UserException;
 import match.model.dto.UserDTO;
 import match.model.entity.User;

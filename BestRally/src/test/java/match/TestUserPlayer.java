@@ -36,7 +36,8 @@ public class TestUserPlayer {
 //		User user = new User(null, name, HashPassword, hashSalt, email, null, admin, null);
 //		userRepository.save(user);
 //		User user2 = userRepository.findById(2).get();
-//		User user = userRepository.readUserByName("POPO").get();
+		User user = userRepository.readUserByName("POPO Yang").get();
+		System.out.println(user.getUsername());
 //		
 //		user.setUsername("POPO Yang");
 //
@@ -44,8 +45,8 @@ public class TestUserPlayer {
 		
 //		User user2 = userRepository.findById(2).get();
 //		System.out.println(user.getUsername());
-		List<User> users = userRepository.findAllUsers();
-		System.out.println(users);
+//		List<User> users = userRepository.findAllUsers();
+//		System.out.println(users);
 		
 	}
 }

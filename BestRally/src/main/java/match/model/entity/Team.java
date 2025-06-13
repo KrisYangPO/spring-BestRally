@@ -10,12 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Team {
@@ -27,21 +25,21 @@ public class Team {
 	@Column(name="team_name", nullable = false, unique = true)
 	private String teamName;
 	
-	@Column(name="avg_level", nullable = true)
+	@Column(name="avg_level", nullable = true, columnDefinition = "integer default 0")
 	private Integer avgLevel;
 	
-	@Column(name="team_num", nullable = true)
+	@Column(name="team_num", nullable = true, columnDefinition = "integer default 0")
 	private Integer teamNum;
 	
 	@Column(name = "place", nullable = false)
 	private String place;
 	
-	@Column(name = "recruit", nullable = false)
+	@Column(name = "recruit", nullable = false )
 	private Boolean recruit;
 	
 	// 一個隊長就只會有一個隊伍。
 	@ManyToOne
-	@JoinColumn(name = "player_id")
+	@JoinColumn(name = "player_id", unique = true)
 	private Player player;
 	
 	// 一個隊伍有多個 teamPlayer，一個 teamPlayer id 就只會有一個 team
