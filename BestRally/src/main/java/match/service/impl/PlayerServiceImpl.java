@@ -82,7 +82,6 @@ public class PlayerServiceImpl implements PlayerService{
 		if(optUser.isEmpty()) {
 			throw new PlayerException("PlayerService: 新增球員身份失敗，使用者不存在："+userId);
 		}
-		
 		// 建立 player 身份：
 		Player player = new Player(null, level, optUser.get());
 		playerRepository.save(player);

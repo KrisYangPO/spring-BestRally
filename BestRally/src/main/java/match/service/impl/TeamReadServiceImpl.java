@@ -20,7 +20,6 @@ public class TeamReadServiceImpl implements TeamReadService {
 	
 	@Autowired
 	private TeamRepository teamRepository;
-	
 	@Autowired
 	private PlayerRepository playerRepository;
 

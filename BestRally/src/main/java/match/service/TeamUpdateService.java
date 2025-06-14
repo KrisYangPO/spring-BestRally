@@ -1,12 +1,17 @@
 package match.service;
 
-import match.exception.TeamException;
+import org.springframework.stereotype.Service;
 
+import match.exception.TeamException;
+import match.exception.TeamPlayerException;
+import match.model.dto.TeamDTO;
+
+@Service
 public interface TeamUpdateService {
 	// 新增隊伍：
 	// 一定要先有 player 身份才可以建立隊伍，
 	// 這個 player 建立隊伍的同時就會自動成為隊長。
-	void addTeam(Integer playerId, String teamName, String place, Boolean recruit) throws TeamException;
+	void addTeam(Integer playerId, TeamDTO teamDTO) throws TeamException, TeamPlayerException;
 	
 	// 更新隊伍名稱
 	void updateTeamName(Integer teamId, String teamName) throws TeamException;

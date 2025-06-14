@@ -12,19 +12,21 @@ import match.exception.UserException;
 import match.exception.UserNotFoundException;
 import match.mapper.UserMapper;
 import match.model.dto.UserDTO;
+import match.model.dto.UserRegisterDTO;
 import match.model.entity.User;
 import match.repository.UserRepository;
 import match.service.UserService;
+import match.util.Hash;
 
 @Service
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
-	
 	@Autowired
 	private UserMapper userMapper;
 
+	
 	// 尋找所有 user
 	@Override
 	public List<UserDTO> findAllUsers() {
@@ -47,27 +49,52 @@ public class UserServiceImpl implements UserService {
 	
 	// 新增使用者
 	@Override
-	public void addUser(String username, String hashPassword, String hashSalt, String email, String photo, Boolean admin)
-			throws UserException {
+	public void addUser(UserRegisterDTO userRegisterDTO) throws UserException {
+		
 		// 先根據 username 看看有沒有重複輸入到資料庫
-		Optional<User> optUser = userRepository.readUserByName(username);
-		if(optUser != null) {
-			throw new UserAlreadyExistsException("UserService: 新增使用者錯誤，使用者名稱已經註冊：" + username);
+		Optional<User> optUser = userRepository.readUserByName(userRegisterDTO.getUsername());
+		if(optUser.isPresent()) {
+			throw new UserAlreadyExistsException("UserService: 新增使用者錯誤，使用者名稱已經註冊：" + userRegisterDTO.getUsername());
 		}
-		// 若 optUser 不存在，就可以加入資料庫。
-		User user = new User(null, username, hashPassword, hashSalt, email, photo, admin, null);
+		
+		// userRegisterDTO 只會儲存 1.username, 2. password, 3. email, 4. photo
+		// 但是依舊可以將相同的屬性名稱用 ModelMapper 物件轉成 User Entity：
+		
+		// 1. 建立 HashSalt + HashPassword
+		String hashSalt = Hash.getSalt();
+		String hashPassword = Hash.getHash(userRegisterDTO.getHashPassword(), hashSalt);
+		// 重新將使用者表單輸入的密碼取代成加鹽加密密碼。
+		userRegisterDTO.setHashPassword(hashPassword);
+		
+		// 2. 將 userRegisterDTO 轉成 User Entity：
+		User user = userMapper.toEntity(userRegisterDTO);
+		// 設定 admin 跟 salt:
+		user.setHashSalt(hashSalt);
+		user.setAdmin(false);
 		userRepository.save(user);
 	}
 	
 	
 	// 更新使用者資訊。
 	@Override
-	public void updateUser(Integer userId, User newUser) throws UserException {
-		// 要先確認 userId 在資料庫中有紀錄：
+	public void updateUser(Integer userId, UserRegisterDTO userRegisterDTO) throws UserException {
+		
 		try {
+			// Step1. 要先確認 userId 在資料庫中有紀錄：
 			User user = findByUserId(userId);
-			// 確認這個 userId 可以更新，就直接將這個 newUser 帶入。
-			userRepository.save(newUser);
+			
+			// Step2. 將密碼製作成 HashPassword 加鹽密碼
+			String hashSalt = user.getHashSalt();
+			String hashPassword = Hash.getHash(userRegisterDTO.getHashPassword(), hashSalt);
+			
+			// Step3. 將更新專用的 userRegisterDTO 內容轉至給 userDTO
+			user.setUsername(userRegisterDTO.getUsername());
+			user.setHashPassword(hashPassword);
+			user.setEmail(userRegisterDTO.getEmail());
+			user.setPhoto(userRegisterDTO.getPhoto());
+			
+			// Step4. 執行更新。
+			userRepository.save(user);
 			
 		} catch (UserException e) {
 			e.printStackTrace();
@@ -76,12 +103,12 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
-	/** 部分更新邏輯：
+	/*  部分更新邏輯：
 	 *  部分資料更新像是更新使用者名稱，email, password 等資訊，
-	 *  最後依舊會交給 Service 裡的 updateUser 進行資料更新。
+	 *  最後直接 save -> userRepository.save(user);
 	 *  
 	 *  因此在更新這些部分內容，主要會先：
-	 *  1. 確認這個 userId 可以找到資料，
+	 *  1. 確認這個 userId 可以找到資料 (findByUserId(userId))，
 	 *  2. 透過找出來的 User entity，用 Setter 方式用新參數更新特定屬性。
 	 *  3. 用 save() 進行判斷更新。
 	 */
@@ -92,8 +119,8 @@ public class UserServiceImpl implements UserService {
 		try {
 			User user = findByUserId(userId);
 			user.setUsername(username);
-			// 直接執行 Service:updateUser
-			updateUser(userId, user);
+			// 直接 save
+			userRepository.save(user);
 			
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();
@@ -107,14 +134,13 @@ public class UserServiceImpl implements UserService {
 		try {
 			User user = findByUserId(userId);
 			user.setHashPassword(hashPassword);
-			// 直接執行 Service:updateUser
-			updateUser(userId, user);
+			// 直接 save
+			userRepository.save(user);
 			
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();
 			throw new UserNotFoundException("UserService: 更新使用者密碼時發生錯誤，查無此使用者編號："+userId + e.getMessage());
 		}
-		
 	}
 
 	// 更新 email
@@ -123,14 +149,13 @@ public class UserServiceImpl implements UserService {
 		try {
 			User user = findByUserId(userId);
 			user.setEmail(email);
-			// 直接執行 Service:updateUser
-			updateUser(userId, user);
+			// 直接 save
+			userRepository.save(user);
 			
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();
 			throw new UserNotFoundException("UserService: 更新使用者信箱時發生錯誤，查無此使用者編號："+userId + e.getMessage());
-		}
-		
+		} 
 	}
 	
 	// 更新照片
@@ -139,8 +164,8 @@ public class UserServiceImpl implements UserService {
 		try {
 			User user = findByUserId(userId);
 			user.setPhoto(photo);
-			// 直接執行 Service:updateUser
-			updateUser(userId, user);
+			// 直接 save
+			userRepository.save(user);
 			
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();

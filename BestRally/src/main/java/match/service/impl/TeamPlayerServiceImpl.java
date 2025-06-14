@@ -52,6 +52,7 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 		if(optPlayer.isEmpty()) {
 			throw new TeamPlayerException("TeamPlayerService: 建立球隊隊員失敗，查無此球員編號："+player.getId());
 		}
+		
 		// 建立 teamPlayer 並儲存至資料庫。
 		TeamPlayer teamPlayer = new TeamPlayer();
 		teamPlayer.setPlayer(player);
@@ -98,7 +99,11 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 			throw new TeamPlayerException("TeamPlayerService: 查詢球隊球員失敗，查無此球隊編號："+teamId);
 		}
 		// 直接尋找
-		return teamPlayerRepository.readTeamPlayerByTeamId(teamId);
+		List<TeamPlayerDTO> teamPlayerDTOs = teamPlayerRepository.readTeamPlayerByTeamId(teamId);
+		if(teamPlayerDTOs.isEmpty() || teamPlayerDTOs == null) {
+			throw new TeamPlayerException("TeamPlayerService: 查詢球隊球員失敗，球隊沒有任何人加入："+teamId);
+		}
+		return teamPlayerDTOs;
 	}
 
 	
@@ -111,7 +116,11 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 			throw new TeamPlayerException("TeamPlayerService: 查詢球隊球員失敗，查無此球員編號："+playerId);
 		}
 		// 直接尋找
-		return teamPlayerRepository.readTeamPlayerByPlayerId(playerId);
+		List<TeamPlayerDTO> teamPlayerDTOs = teamPlayerRepository.readTeamPlayerByPlayerId(playerId);
+		if(teamPlayerDTOs.isEmpty() || teamPlayerDTOs == null) {
+			throw new TeamPlayerException("TeamPlayerService: 查詢球隊球員失敗，球員編號沒有加入任何球隊："+playerId);
+		}
+		return teamPlayerDTOs;
 	}
 
 	

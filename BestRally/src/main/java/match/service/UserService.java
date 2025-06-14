@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import match.exception.UserException;
 import match.model.dto.UserDTO;
+import match.model.dto.UserRegisterDTO;
 import match.model.entity.User;
 
 @Service
@@ -16,10 +17,10 @@ public interface UserService {
 	public abstract User findByUserId(Integer userId) throws UserException;
 	
 	// 新增使用者
-	public abstract void addUser(String username, String hashPassword, String hashSalt, String email, String photo, Boolean admin)  throws UserException;
+	public abstract void addUser(UserRegisterDTO userRegisterDTO)  throws UserException;
 	
 	// 修改使用者
-	public abstract void updateUser(Integer userId, User user) throws UserException;
+	public abstract void updateUser(Integer userId, UserRegisterDTO userRegisterDTO) throws UserException;
 	public abstract void updateUserName(Integer userId, String username) throws UserException;
 	public abstract void updateUserPassword(Integer userId, String password) throws UserException;
 	public abstract void updateUserEmail(Integer userId, String email) throws UserException;

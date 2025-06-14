@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import match.exception.TeamException;
 import match.exception.TeamNotFoundException;
+import match.exception.TeamPlayerException;
+import match.exception.TeamRefreshException;
+import match.mapper.TeamMapper;
 import match.model.dto.PlayerDTO;
 import match.model.dto.TeamDTO;
 import match.model.entity.Team;
 import match.repository.PlayerRepository;
 import match.repository.TeamRepository;
+import match.service.TeamPlayerService;
 import match.service.TeamUpdateService;
 
 @Service
@@ -18,34 +22,45 @@ public class TeamUpdateServiceImpl implements TeamUpdateService{
 	
 	@Autowired
 	private TeamRepository teamRepository;
-	
 	@Autowired
 	private PlayerRepository playerRepository;
+	@Autowired
+	private TeamPlayerService teamPlayerService;
+	@Autowired
+	private TeamMapper teamMapper;
 
 	// 新增球隊
 	@Override
-	public void addTeam(Integer playerId, String teamName, String place, Boolean recruit) throws TeamException {
+	public void addTeam(Integer playerId, TeamDTO teamDTO)
+			throws TeamException, TeamPlayerException, TeamRefreshException {
+		
+		// Step1. 檢查資料庫內容
 		// 檢查這個 playerId 是否存在 player 資料庫，
 		Optional<PlayerDTO> optPlayerDTO = playerRepository.readPlayerDTOByPlayerId(playerId);
 		if(optPlayerDTO.isEmpty()) {
 			throw new TeamNotFoundException("TeamService: 新增隊伍失敗，查無此球員編號:"+playerId);
 		}
 		// 檢查這個 teamName 是否已經註冊 team 資料庫，
-		Optional<TeamDTO> optTeam = teamRepository.findTeamByName(teamName);
+		Optional<TeamDTO> optTeam = teamRepository.findTeamByName(teamDTO.getTeamName());
 		if(optTeam.isPresent()) {
-			throw new TeamNotFoundException("TeamService: 新增隊伍失敗，查無此球隊名稱："+teamName);
+			throw new TeamNotFoundException("TeamService: 新增隊伍失敗，查無此球隊名稱："+teamDTO.getTeamName());
 		}
 		
-		// 手動直接將內容輸入：
-		Team team = new Team();
-		team.setPlace(place);
+		// Step2. 將 TeamDTO 轉 Team entity
+		Team team = teamMapper.toEntity(teamDTO);
+		
+		// Step3. 手動直接將內容輸入：
 		team.setPlayer(playerRepository.findById(playerId).get());
-		team.setRecruit(recruit);
-		team.setTeamName(teamName);
 		// 進行更新：
 		teamRepository.save(team);
+		
+		// Step4. 同時新增 TeamPlayer 資料內容。
+		// 接著直接新增 teamPlayer 到這個 team 當中，
+		// 因為 team.player 就是隊長，也就是創立這個球隊的人。
+		teamPlayerService.addTeamPlayer(team, playerRepository.findById(playerId).get());
 	}
 
+	
 	// 部分更新：更新球隊名稱
 	@Override
 	public void updateTeamName(Integer teamId, String teamName) throws TeamException  {

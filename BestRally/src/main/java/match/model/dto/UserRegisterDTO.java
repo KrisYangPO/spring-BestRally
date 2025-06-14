@@ -3,16 +3,16 @@ package match.model.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
 @Getter
-@ToString
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserCertDTO extends UserDTO{
-	private Integer id;
+public class UserRegisterDTO extends UserDTO {
+	
 	private String username;
+	private String hashPassword;
 	private String email;
 	private String photo;
-	private Boolean admin;
 }
