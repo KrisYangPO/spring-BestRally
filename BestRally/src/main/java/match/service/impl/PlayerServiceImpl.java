@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import match.exception.PlayerException;
 import match.exception.PlayerNotFoundException;
 import match.exception.TeamPlayerException;
@@ -90,6 +91,7 @@ public class PlayerServiceImpl implements PlayerService{
 	
 	// 更新球員數據。
 	@Override
+	@Transactional
 	public void updatePlayerLevel(Integer userId, Integer level) throws PlayerException {
 		// 先確認 userId 是否存在：
 		PlayerDTO playerDTO = findPlayerByUserId(userId);
@@ -144,6 +146,7 @@ public class PlayerServiceImpl implements PlayerService{
 	
 	// 刪除球員。
 	@Override
+	@Transactional
 	public void removePlayer(Integer userId) throws PlayerException {
 		// 先確認 userId 是否存在：
 		PlayerDTO playerDTO = findPlayerByUserId(userId);

@@ -2,9 +2,12 @@ package match.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import match.model.dto.TeamDTO;
 import match.model.entity.Team;
 
+@Component
 public class TeamMapper {
 	
 	@Autowired

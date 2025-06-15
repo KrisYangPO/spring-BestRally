@@ -3,7 +3,10 @@ package match.service.impl;
 import java.util.IntSummaryStatistics;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 import match.exception.TeamException;
 import match.exception.TeamPlayerException;
 import match.exception.TeamRefreshException;
@@ -31,12 +34,15 @@ import match.service.TeamUpdateService;
 public class TeamRefreshDataServiceImpl implements TeamRefreshDataService {
 	
 	@Autowired
+	@Lazy
 	private TeamPlayerService teamPlayerService;
 	@Autowired
+	@Lazy
 	private TeamUpdateService teamUpdateService;
 
 
 	@Override
+	@Transactional
 	public Boolean AFTeamPlayerUpdate(Integer teamId) throws TeamRefreshException {
 		
 		// Step1. 球隊總人數：

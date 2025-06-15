@@ -12,6 +12,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 import match.exception.MatchArrangeException;
 import match.exception.MatchPlayerException;
 import match.model.dto.MatchPlayerDTO;
@@ -34,6 +36,7 @@ public class SetPlayerMatchServiceImpl implements SetPlayerMatchService {
 	Random random = new Random();
 	
 	@Override
+	@Transactional
 	public List<MatchPlayerDTO> supplementPlayers(List<MatchPlayerDTO> matchPlayers, List<MatchPlayerDTO> battlePlayers) throws MatchPlayerException {
 		
 		// 如果對戰隊伍完全沒有依照球員等級所篩選出來的球員，
@@ -115,6 +118,7 @@ public class SetPlayerMatchServiceImpl implements SetPlayerMatchService {
 	
 
 	@Override
+	@Transactional
 	public List<MatchPlayerDTO> arrangePlayerWithLevel(List<MatchPlayerDTO> matchPlayers, Integer levelThreshold) throws MatchPlayerException {
 		
 		System.out.println("自動編排：目前備戰人數：" + matchPlayers.size());

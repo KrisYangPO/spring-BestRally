@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 import match.exception.TeamPlayerException;
 import match.exception.TeamRefreshException;
 import match.mapper.TeamMapper;
@@ -41,6 +43,7 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 	// 新增球隊球員身份，
 	// 要先確認這個球隊編號，與球員編號都有紀錄資料在資料庫。
 	@Override
+	@Transactional
 	public void addTeamPlayer(Integer teamId, Integer playerId) throws TeamPlayerException, TeamRefreshException {
 		// 確認 team 的 id 沒問題
 		Optional<Team> optTeam = teamRepository.findById(teamId);
