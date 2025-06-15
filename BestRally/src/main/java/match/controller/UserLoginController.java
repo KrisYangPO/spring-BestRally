@@ -39,6 +39,7 @@ public class UserLoginController {
 	@Autowired
 	private UserLoginSessionService userLoginSessionService;
 	
+	
 	// 取得登入頁面：(類似 doGet 點擊進入登入)
 	// return "loging" 就是 req.getRequestDispatcher("/login.jsp").forward() 的意思。
 	// 點擊登入頁面後就會執行這個 controller:getLoing() 方法到登入頁面。
@@ -46,6 +47,7 @@ public class UserLoginController {
 	public String getLogin() {
 		return "user_login";
 	}
+	
 	
 	// 取得表單資訊，讀取 username, password，
 	@PostMapping("/login")

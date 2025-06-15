@@ -125,7 +125,7 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 	
 	// 更新勝率，透過 SQL 控制：當執行 updateWinRate 就計算一次 WinRate
 	@Override
-	public void updateTeamPlayerWinRatio(Integer teamId, Integer playerId, Double winRate) throws TeamPlayerException  {
+	public void updateTeamPlayerWinRatio(Integer teamId, Integer playerId) throws TeamPlayerException  {
 		// Step1. 確認 teamId 
 		Optional<Team> optTeam = teamRepository.findById(teamId);
 		if(optTeam.isEmpty()) {
@@ -156,6 +156,9 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 		}
 		// Step3. 執行更新方法
 		teamPlayerRepository.updateMatchData(teamId, playerId, winGame, total);
+		
+		// Step4. 直接更新 winRate:
+		updateTeamPlayerWinRatio(teamId, playerId);
 	}
 
 	
@@ -180,7 +183,7 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 		return new TeamsOfPlayerDTO(playerDTO, teamDTOs);
 	}
 	
-
+	
 	// 取得這個球隊(teamId)所有的參與球員資訊：
 	@Override
 	public PlayersOfTeamDTO getPlayersFromTeam(Integer teamId) throws TeamPlayerException {

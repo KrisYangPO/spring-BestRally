@@ -32,7 +32,7 @@ public interface TeamPlayerService {
 	List<TeamPlayerDTO> findByPlayerId(Integer playerId) throws TeamPlayerException;
 	
 	// 更新 TeamPlayer 資訊：
-	void updateTeamPlayerWinRatio(Integer teamId, Integer playerId, Double winRate) throws TeamPlayerException;
+	void updateTeamPlayerWinRatio(Integer teamId, Integer playerId) throws TeamPlayerException;
 	void updateTeamPlayerMatchData(Integer teamId, Integer playerId, Integer winGame, Integer total) throws TeamPlayerException;
 	
 	
