@@ -40,7 +40,7 @@ public class MatchPlayerDTO {
 		// 加入分數紀錄
 		this.matchRecord.add(score);
 		
-		// 紀錄勝場
+		// 紀錄勝場數
 		this.winGame =  matchRecord
 				.stream()
 				.filter(m -> m == 1)
@@ -48,7 +48,7 @@ public class MatchPlayerDTO {
 				.sum();
 		// mapToInt 將 Stream<Integer> 轉成 IntStream 才可以藉由 sum() 計算總和。
 		
-		// 紀錄總場次
+		// 紀錄總場次數
 		this.totalMatch = matchRecord.size();
 	}
 }

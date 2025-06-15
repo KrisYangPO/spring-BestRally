@@ -35,6 +35,7 @@ public class MatchReckonController {
 		// 一般來說，這裡面的 matchPlayer 都已經紀錄好所有的對戰數據，像是勝場，總場次，
 		// 所以這裡就要想辦法將每個 matchPlayers 的數據傳到後端。
 		
+		// Step2. 將每個 matchPlayer 對戰資訊紀錄至後端：
 		for(MatchPlayerDTO mp: matchPlayers) {
 			try {
 				// 將 matchDTOs 儲存到後端。
