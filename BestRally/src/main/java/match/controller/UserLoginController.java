@@ -49,7 +49,7 @@ public class UserLoginController {
 	
 	// 取得表單資訊，讀取 username, password，
 	@PostMapping("/login")
-	public String logingGetCert(
+	public String loginGetCert(
 			@RequestParam String username, 
 			@RequestParam String password,
 			Model model, HttpSession session) {
@@ -90,5 +90,23 @@ public class UserLoginController {
 		
 		// 通知瀏覽器執行首頁
 		return "redirect:/";
+	}
+	
+	
+	// 登出使用者
+	@GetMapping("/logout")
+	public String logout(HttpSession session, Model model) {
+		
+		// 先確認目前是否有人登入，如果沒有人登入就不用登出。
+		// 但是也可以靠 JSP 直接判斷 session 顯示登出按鈕：
+		if(session.getAttribute("userCertDTO") == null) {
+			String message = "目前沒有任何人登入，登出無效。";
+			model.addAttribute("message", message);
+			return "error_report";
+		}
+		
+		// 直接刪除 session
+		session.invalidate();
+		return "/";
 	}
 }

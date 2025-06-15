@@ -11,6 +11,7 @@ import match.exception.TeamRefreshException;
 import match.mapper.TeamMapper;
 import match.model.dto.PlayerDTO;
 import match.model.dto.TeamDTO;
+import match.model.entity.Player;
 import match.model.entity.Team;
 import match.repository.PlayerRepository;
 import match.repository.TeamRepository;
@@ -57,7 +58,32 @@ public class TeamUpdateServiceImpl implements TeamUpdateService{
 		// Step4. 同時新增 TeamPlayer 資料內容。
 		// 接著直接新增 teamPlayer 到這個 team 當中，
 		// 因為 team.player 就是隊長，也就是創立這個球隊的人。
-		teamPlayerService.addTeamPlayer(team, playerRepository.findById(playerId).get());
+		teamPlayerService.addTeamPlayer(team.getId(), playerId);
+	}
+	
+	
+	// 更新隊伍資訊
+	@Override
+	public void updateTeam(Integer teamId, String teamName, String place, Boolean recruit, Integer playerId) throws TeamException {
+		// 先確認這個 teamId 有註冊 team 資料到資料庫。
+		Optional<Team> optTeam = teamRepository.findById(teamId);
+		if(optTeam.isEmpty()) {
+			throw new TeamNotFoundException("TeamService: 更新隊伍錯誤，查無此隊伍編號："+teamId);
+		}
+		// 確認 playerId
+		Optional<Player> optPlayer = playerRepository.findById(playerId);
+		if(optPlayer.isEmpty()) {
+			throw new TeamException("TeamService: 更新隊伍失敗，查無此隊長編號："+playerId);
+		}
+		
+		// 直接更新：
+		Team team = optTeam.get();
+		team.setTeamName(teamName);
+		team.setPlace(place);
+		team.setRecruit(recruit);
+		team.setPlayer(optPlayer.get());
+		
+		teamRepository.save(team);
 	}
 
 	

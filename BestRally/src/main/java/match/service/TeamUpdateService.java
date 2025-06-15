@@ -13,6 +13,9 @@ public interface TeamUpdateService {
 	// 這個 player 建立隊伍的同時就會自動成為隊長。
 	void addTeam(Integer playerId, TeamDTO teamDTO) throws TeamException, TeamPlayerException;
 	
+	// 更新隊伍
+	void updateTeam(Integer teamId, String teamName, String place, Boolean recruit, Integer playerId) throws TeamException;
+	
 	// 更新隊伍名稱
 	void updateTeamName(Integer teamId, String teamName) throws TeamException;
 	

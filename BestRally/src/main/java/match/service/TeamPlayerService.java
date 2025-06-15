@@ -17,7 +17,7 @@ import match.model.entity.TeamPlayer;
 public interface TeamPlayerService {
 	// 新增隊伍球員，通常要加入球隊球員，已經是登入且有球員身份，
 	// 並且可以透過查詢球隊找到隊伍資訊，因此直接透過 Entity 加入。
-	void addTeamPlayer(Team team, Player player) throws TeamPlayerException, TeamRefreshException;
+	void addTeamPlayer(Integer teamId, Integer playerId) throws TeamPlayerException, TeamRefreshException;
 	
 	// 尋找所有 teamPlayers
 	List<TeamPlayerDTO> findAllTeamPlayers();

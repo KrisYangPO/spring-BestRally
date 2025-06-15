@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import match.exception.TeamException;
 import match.exception.TeamNotFoundException;
+import match.mapper.TeamMapper;
 import match.model.dto.TeamDTO;
 import match.model.entity.Player;
 import match.model.entity.Team;
@@ -22,6 +23,8 @@ public class TeamReadServiceImpl implements TeamReadService {
 	private TeamRepository teamRepository;
 	@Autowired
 	private PlayerRepository playerRepository;
+	@Autowired
+	private TeamMapper teamMapper;
 
 	// 找出所有球隊
 	@Override
@@ -30,17 +33,17 @@ public class TeamReadServiceImpl implements TeamReadService {
 	}
 
 	@Override
-	public Team findTeamByTeamId(Integer teamId) throws TeamException {
+	public TeamDTO findTeamByTeamId(Integer teamId) throws TeamException {
 		// 先確認這個 teamId 有註冊 team 資料到資料庫。
 		Optional<Team> optTeam = teamRepository.findById(teamId);
 		if(optTeam.isEmpty()) {
 			throw new TeamNotFoundException("TeamService: 查詢隊伍失敗，查無此隊伍編號："+teamId);
 		}
-		return optTeam.get();
+		return teamMapper.toDTO(optTeam.get());
 	}
 	
 	@Override
-	public TeamDTO findTeamByCapId(Integer playerId) throws TeamException{
+	public List<TeamDTO> findTeamByCapId(Integer playerId) throws TeamException{
 		// 先確認這個 playerId 有存在 Player 資料庫：
 		Optional<Player> optPlayer = playerRepository.findById(playerId);
 		if(optPlayer.isEmpty()) {

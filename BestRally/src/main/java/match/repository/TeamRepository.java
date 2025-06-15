@@ -29,7 +29,7 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
 			From Team t
 			Where t.player.id =:playerId
 			""")
-	public TeamDTO findTeamByCapId(Integer playerId);
+	public List<TeamDTO> findTeamByCapId(Integer playerId);
 	
 	
 	// 透過隊伍名稱尋找隊伍：

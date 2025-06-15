@@ -15,9 +15,9 @@ public interface TeamReadService {
 	List<TeamDTO> findAllTeams();
 	
 	// 用 teamId 找球隊：
-	Team findTeamByTeamId(Integer teamId) throws TeamException;
-	// 用 playerId 找球隊：
-	TeamDTO findTeamByCapId(Integer playerId) throws TeamException;
+	TeamDTO findTeamByTeamId(Integer teamId) throws TeamException;
+	// 用 playerId (隊長編號)找球隊 (一個隊長可能會有多個球隊)：
+	List<TeamDTO> findTeamByCapId(Integer playerId) throws TeamException;
 	// 用 teamName 找球隊：
 	TeamDTO findTeamByName(String teamName) throws TeamException;
 	// 用 recruit 找球隊：

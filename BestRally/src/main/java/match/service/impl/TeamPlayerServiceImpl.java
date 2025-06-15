@@ -41,33 +41,32 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 	// 新增球隊球員身份，
 	// 要先確認這個球隊編號，與球員編號都有紀錄資料在資料庫。
 	@Override
-	public void addTeamPlayer(Team team, Player player) throws TeamPlayerException, TeamRefreshException {
+	public void addTeamPlayer(Integer teamId, Integer playerId) throws TeamPlayerException, TeamRefreshException {
 		// 確認 team 的 id 沒問題
-		Optional<Team> optTeam = teamRepository.findById(team.getId());
+		Optional<Team> optTeam = teamRepository.findById(teamId);
 		if(optTeam.isEmpty()) {
-			throw new TeamPlayerException("TeamPlayerService: 建立球隊球員失敗，查無此隊伍編號："+team.getId());
+			throw new TeamPlayerException("TeamPlayerService: 建立球隊球員失敗，查無此隊伍編號："+teamId);
 		}
 		// 確認 player 的 id 沒問題
-		Optional<Player> optPlayer = playerRepository.findById(player.getId());
+		Optional<Player> optPlayer = playerRepository.findById(playerId);
 		if(optPlayer.isEmpty()) {
-			throw new TeamPlayerException("TeamPlayerService: 建立球隊隊員失敗，查無此球員編號："+player.getId());
+			throw new TeamPlayerException("TeamPlayerService: 建立球隊隊員失敗，查無此球員編號："+playerId);
 		}
 		
 		// 建立 teamPlayer 並儲存至資料庫。
 		TeamPlayer teamPlayer = new TeamPlayer();
-		teamPlayer.setPlayer(player);
-		teamPlayer.setTeam(team);
+		teamPlayer.setPlayer(optPlayer.get());
+		teamPlayer.setTeam(optTeam.get());
 		teamPlayerRepository.save(teamPlayer);
 		
 		// 更新隊伍數據：
 		try {
-			teamRefreshDataService.AFTeamPlayerUpdate(team.getId());
+			teamRefreshDataService.AFTeamPlayerUpdate(teamId);
 		
 		}catch (TeamRefreshException e) {
 			e.printStackTrace();
 			throw new TeamRefreshException("TeamPlayerService: 球員加入球隊後，更新隊伍數據失敗。" + e.getMessage());
 		}
-		
 	}
 
 	
