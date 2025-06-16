@@ -5,7 +5,7 @@ target/
 !**/src/test/**/target/
 
 ### credential properties ###
-application.properties
+*application.properties
 
 
 ### STS ###
