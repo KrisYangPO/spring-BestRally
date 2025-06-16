@@ -54,7 +54,7 @@ public class UserLoginController {
 	public String loginGetCert(
 			@RequestParam String username, 
 			@RequestParam String password,
-			Model model, HttpSession session) {
+			Model model, HttpSession session) throws UserCertException {
 		
 		// Step1. 登入使用者：
 		// -------------------------------------------------------------------------------------------
@@ -86,8 +86,7 @@ public class UserLoginController {
 		}catch (UserCertException e) {
 			e.printStackTrace();
 			String message = String.format("UserLoginService: 登入失敗。%n%s", e.getMessage());
-			model.addAttribute("message", message);
-			return "error_report";
+			throw new UserCertException(message);
 		}
 		
 		// 通知瀏覽器執行首頁
@@ -97,14 +96,13 @@ public class UserLoginController {
 	
 	// 登出使用者
 	@GetMapping("/logout")
-	public String logout(HttpSession session, Model model) {
+	public String logout(HttpSession session, Model model) throws UserCertException {
 		
 		// 先確認目前是否有人登入，如果沒有人登入就不用登出。
 		// 但是也可以靠 JSP 直接判斷 session 顯示登出按鈕：
 		if(session.getAttribute("userCertDTO") == null) {
 			String message = "目前沒有任何人登入，登出無效。";
-			model.addAttribute("message", message);
-			return "error_report";
+			throw new UserCertException(message);
 		}
 		
 		// 直接刪除 session

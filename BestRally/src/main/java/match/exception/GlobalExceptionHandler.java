@@ -55,6 +55,18 @@ public class GlobalExceptionHandler {
 		model.addAttribute(String.format("[Global]%s: 錯誤訊息-%s", type, message));
 		return "error_report";
 	}
+
+	// TeamPlayerException:
+	@ExceptionHandler(TeamPlayerException.class)
+	public String getTeamPlayerException(TeamPlayerException e, Model model, HttpSession session) {
+		// 找 type 跟 message
+		String type = e.getClass().getSimpleName();
+		String message = e.getMessage();
+		
+		// 推送至 JSP
+		model.addAttribute(String.format("[Global]%s: 錯誤訊息-%s", type, message));
+		return "error_report";
+	}
 	
 	// RefreshException:
 	@ExceptionHandler(TeamRefreshException.class)

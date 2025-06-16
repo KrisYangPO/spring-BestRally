@@ -34,7 +34,7 @@ public class TeamApplyController {
 	
 	// 向球隊隊長申請
 	@GetMapping("/apply/{teamId}")
-	public String applyTeam(@PathVariable Integer teamId, HttpSession session, Model model, HttpServletRequest request) throws TeamException {
+	public String applyTeam(@PathVariable Integer teamId, HttpSession session, Model model, HttpServletRequest request) throws TeamException, TeamPlayerException {
 		
 		// 回報訊息：
 		String message = null;
@@ -52,8 +52,7 @@ public class TeamApplyController {
 				 // 回傳錯誤訊息
 				 System.err.printf("你已經加入此球隊(%s)編號(%s)與申請編號(%s)一樣。",
 						 optTeamDTO.get().getTeamName(), optTeamDTO.get().getId(), teamId);
-				 model.addAttribute("message", message);
-				 return "error_report";
+				 throw new TeamPlayerException(message);
 			}
 		}
 		
@@ -87,8 +86,7 @@ public class TeamApplyController {
 			e.printStackTrace();
 			System.err.println("申請球隊錯誤：發送申請email時發生錯誤："+applyLink +"\n"+ e.getMessage());
 			message = "申請球隊錯誤：發送申請email時發生錯誤："+applyLink + "\n" + e.getMessage();
-			model.addAttribute("message", message);
-			return "error_report";
+			throw new TeamPlayerException(message);
 		}
 	}
 	

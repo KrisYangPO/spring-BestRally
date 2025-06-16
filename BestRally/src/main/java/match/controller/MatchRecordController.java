@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
+import match.exception.MatchPlayerException;
 import match.model.dto.MatchPlayerDTO;
 import match.service.SetPlayerMatchService;
 
@@ -33,7 +34,7 @@ public class MatchRecordController {
 			@RequestParam Map<String, String> matchResultRaw, //@RequestParam 轉成 Map 一定是 String, String
 			Model model, 
 			HttpSession session
-			) {
+			) throws MatchPlayerException {
 		
 		// Step0. 處理 matchResult Map:
 		// =====================================================================================================================================
@@ -53,8 +54,7 @@ public class MatchRecordController {
 		if(winCount != 2) {
 			System.err.println("MatchRecordController: 輸入勝負錯誤，一組雙打勝利數一定是 2。" + winCount);
 			String message = "MatchRecordController: 輸入勝負錯誤，一組雙打勝利數一定是 2。" + winCount;
-			model.addAttribute(message);
-			return "error_report";
+			throw new MatchPlayerException(message);
 		}
 		
 		
@@ -101,8 +101,7 @@ public class MatchRecordController {
 			}else {
 				System.err.println("紀錄對戰紀錄時發生錯誤:" + matchResult.get("result_" + i));
 				String message = "紀錄對戰紀錄時發生錯誤:" + matchResult.get("result_" + i);
-				model.addAttribute("message", message);
-				return "error_report";
+				throw new MatchPlayerException(message);
 			}
 		}
 		
