@@ -39,7 +39,7 @@ public class Team {
 	
 	// 一個隊長就只會有一個隊伍。
 	@ManyToOne
-	@JoinColumn(name = "player_id", unique = true)
+	@JoinColumn(name = "player_id")
 	private Player player;
 	
 	// 一個隊伍有多個 teamPlayer，一個 teamPlayer id 就只會有一個 team

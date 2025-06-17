@@ -112,13 +112,7 @@ public class PlayerServiceImpl implements PlayerService{
 		// 確認是否有加入球隊：
 		try {
 			List<TeamPlayerDTO> teamPlayers = teamPlayerService.findByPlayerId(playerDTO.getId());
-			// 如果 playerId 沒有找到隊伍隊員，表示此球員沒有加入任何球隊，
-			// 有加入(else)就要更新他們的數據。
-			if(teamPlayers == null || teamPlayers.isEmpty() || teamPlayers.size() < 1) {
-				System.out.println("PlayerService: 此球員尚未加入球隊，不需要更新球隊資訊："+playerDTO.getUsername());
-				return; 
-			}
-			
+		
 			// 更新這個 player 參加球隊的數據：
 			// TeamsOfPlayerDTO 取得這個 player 所參加的所有球隊。
 			TeamsOfPlayerDTO teamsOfPlayerDTO = teamPlayerService.getTeamsFromPlayer(playerDTO.getId());
@@ -139,7 +133,8 @@ public class PlayerServiceImpl implements PlayerService{
 		// 找不到 player 編號。
 		} catch (TeamPlayerException e) {
 			e.printStackTrace();
-			throw new PlayerException("PlayerService: 查詢此 player 編號錯誤："+playerDTO.getId());
+			System.err.println("PlayerService: 此球員尚未加入球隊，不需要更新球隊資訊："+playerDTO.getUsername()+"\n" + e.getMessage());
+//			throw new PlayerException("PlayerService: 查詢此 player 編號錯誤："+playerDTO.getId());
 		}
 	}
 

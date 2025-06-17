@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
  * SpringBoot 才會讀取到 JavaWeb 的內建標籤：@WebFilter (不是 SpringBoot 則會被忽略)。
  */
 
-@WebFilter(urlPatterns = {"/team/apply/*", "/match/*"})// 需要登入才能訪問的路徑。
+@WebFilter(urlPatterns = {"/team/apply/*"})// 需要登入才能訪問的路徑。
 public class TeamApplyFilter extends HttpFilter {
 
 	@Override

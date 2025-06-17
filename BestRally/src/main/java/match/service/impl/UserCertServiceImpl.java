@@ -45,7 +45,7 @@ public class UserCertServiceImpl implements UserCertService {
 		}
 		
 		// STEP3. 根據登入資訊建立 UserCertDTO:
-		return userMapper.toCert(loginUser);
+		
+		return new UserCertDTO(loginUser.getId(),loginUser.getUsername(), loginUser.getEmail(), loginUser.getPhoto(), loginUser.getAdmin());
 	}
-
 }

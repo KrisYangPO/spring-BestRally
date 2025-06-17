@@ -44,7 +44,7 @@ public class TeamUpdateServiceImpl implements TeamUpdateService{
 		// 檢查這個 teamName 是否已經註冊 team 資料庫，
 		Optional<TeamDTO> optTeam = teamRepository.findTeamByName(teamDTO.getTeamName());
 		if(optTeam.isPresent()) {
-			throw new TeamNotFoundException("TeamService: 新增隊伍失敗，查無此球隊名稱："+teamDTO.getTeamName());
+			throw new TeamNotFoundException("TeamService: 新增隊伍失敗，球隊名稱已註冊："+teamDTO.getTeamName());
 		}
 		
 		// Step2. 將 TeamDTO 轉 Team entity

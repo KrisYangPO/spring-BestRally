@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jdbc.repository.query.Modifying;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,24 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
 			Where t.player.id =:playerId
 			""")
 	public List<TeamDTO> findTeamByCapId(Integer playerId);
+	
+	
+//	// 可能會導致 N+1 查詢。
+//	// 根據隊伍編號(teamId)搜尋隊伍所有資訊，
+//	@EntityGraph(attributePaths = {"player", "player.user"})
+//	@Query(value = "Select t from Team t where t.id =:teamId")
+//	public Optional<Team> findTeamWithPlayerById(Integer teamId);
+	
+	
+	// 不會產生 N+1 查詢。
+	// 根據隊伍編號(teamId)搜尋隊伍所有資訊
+	@Query("""
+		    SELECT t FROM Team t
+		    JOIN FETCH t.player p
+		    JOIN FETCH p.user
+		    WHERE t.id = :teamId
+		""")
+	public Optional<Team> findTeamWithPlayerById(Integer teamId);
 	
 	
 	// 透過隊伍名稱尋找隊伍：

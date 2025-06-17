@@ -1,12 +1,9 @@
 package match.service;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import match.exception.TeamException;
 import match.model.dto.TeamDTO;
-import match.model.entity.Team;
 
 @Service
 public interface TeamReadService {

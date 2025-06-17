@@ -41,6 +41,6 @@ public class MatchController {
 		model.addAttribute("playerOfTeamDTO", playersOfTeamDTO);
 		model.addAttribute("teamId", teamId);
 		
-		return "match_teamPlayerList";
+		return "match_teamplayerlist";
 	}	
 }

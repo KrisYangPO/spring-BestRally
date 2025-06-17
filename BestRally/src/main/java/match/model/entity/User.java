@@ -39,8 +39,8 @@ public class User {
 	@Column(name="email", nullable = false)
 	private String email;
 	
-	// 如果圖片存 base64 要改成長字串(TEXT)
-	@Column(name="photo", nullable = true, columnDefinition = "TEXT")
+	// 如果圖片存 base64 要改成長字串(LONGTEXT)
+	@Column(name="photo", nullable = true, columnDefinition = "LONGTEXT")
 	private String photo;
 	
 	@Column(name="admin", nullable = true)

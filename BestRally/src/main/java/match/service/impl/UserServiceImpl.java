@@ -130,11 +130,17 @@ public class UserServiceImpl implements UserService {
 
 	// 更新密碼
 	@Override
-	public void updateUserPassword(Integer userId, String hashPassword) throws UserException {
+	public void updateUserPassword(Integer userId, String rowPassword) throws UserException {
 		try {
+			// Step1. 找出使用者
 			User user = findByUserId(userId);
+			
+			// Step2. 將密碼製作成 HashPassword 加鹽密碼
+			String hashSalt = user.getHashSalt();
+			String hashPassword = Hash.getHash(rowPassword, hashSalt);
+			
+			// 更新 user 的密碼：
 			user.setHashPassword(hashPassword);
-			// 直接 save
 			userRepository.save(user);
 			
 		} catch (UserNotFoundException e) {
@@ -178,7 +184,7 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(Integer userId) throws UserException {// 要先確認 userId 在資料庫中有紀錄：
 		try {
 			// 確認有這個 userId 就把他刪除。
-			User user = findByUserId(userId);		
+			findByUserId(userId);		
 			userRepository.deleteById(userId);
 			
 		} catch (UserNotFoundException e) {

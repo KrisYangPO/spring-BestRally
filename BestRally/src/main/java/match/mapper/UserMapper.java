@@ -11,15 +11,9 @@ import match.model.entity.User;
 
 @Component
 public class UserMapper {
-
-    private final ModelMapping modelMapping;
 	
 	@Autowired
 	private ModelMapper modelMapper;
-
-    UserMapper(ModelMapping modelMapping) {
-        this.modelMapping = modelMapping;
-    }
 	
 	// Entity 2 DTO
 	public UserDTO toDTO(User user) {

@@ -3,14 +3,11 @@ package match.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
 import match.exception.TeamPlayerException;
 import match.exception.TeamRefreshException;
 import match.model.dto.PlayersOfTeamDTO;
 import match.model.dto.TeamPlayerDTO;
 import match.model.dto.TeamsOfPlayerDTO;
-import match.model.entity.Player;
-import match.model.entity.Team;
 import match.model.entity.TeamPlayer;
 
 @Service
@@ -30,6 +27,9 @@ public interface TeamPlayerService {
 	
 	// 找尋這個球員(player_id)參與的所有球隊
 	List<TeamPlayerDTO> findByPlayerId(Integer playerId) throws TeamPlayerException;
+	
+	// 刪除球隊球員：
+	void removeTeamPlayer(Integer teamPlayerId) throws TeamPlayerException;
 	
 	// 更新 TeamPlayer 資訊：
 	void updateTeamPlayerWinRatio(Integer teamId, Integer playerId) throws TeamPlayerException;

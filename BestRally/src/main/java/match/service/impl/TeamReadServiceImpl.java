@@ -35,7 +35,7 @@ public class TeamReadServiceImpl implements TeamReadService {
 	@Override
 	public TeamDTO findTeamByTeamId(Integer teamId) throws TeamException {
 		// 先確認這個 teamId 有註冊 team 資料到資料庫。
-		Optional<Team> optTeam = teamRepository.findById(teamId);
+		Optional<Team> optTeam = teamRepository.findTeamWithPlayerById(teamId);
 		if(optTeam.isEmpty()) {
 			throw new TeamNotFoundException("TeamService: 查詢隊伍失敗，查無此隊伍編號："+teamId);
 		}

@@ -54,7 +54,7 @@ public class UserRegisterController {
 		UserRegisterDTO userRegisterDTO = new UserRegisterDTO(username, password, email, photoFile);
 		
 		userService.addUser(userRegisterDTO);
-		return "redirect:/"; 
+		return "redirect:/user/login"; 
 	}
 	
 }

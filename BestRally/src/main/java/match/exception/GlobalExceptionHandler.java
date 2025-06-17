@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
 		String message = e.getMessage();
 		
 		// 推送至 JSP
-		model.addAttribute(String.format("[Global]%s: 錯誤訊息-%s", type, message));
+		model.addAttribute("message", String.format("[Global]%s: 錯誤訊息-%s", type, message));
 		return "error_report";
 	}
 	
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 		String message = e.getMessage();
 		
 		// 推送至 JSP
-		model.addAttribute(String.format("[Global]%s: 錯誤訊息-%s", type, message));
+		model.addAttribute("message", String.format("[Global]%s: 錯誤訊息-%s", type, message));
 		return "error_report";
 	}
 	
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
 		String message = e.getMessage();
 		
 		// 推送至 JSP
-		model.addAttribute(String.format("[Global]%s: 錯誤訊息-%s", type, message));
+		model.addAttribute("message", String.format("[Global]%s: 錯誤訊息-%s", type, message));
 		return "error_report";
 	}
 	
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
 		String message = e.getMessage();
 		
 		// 推送至 JSP
-		model.addAttribute(String.format("[Global]%s: 錯誤訊息-%s", type, message));
+		model.addAttribute("message", String.format("[Global]%s: 錯誤訊息-%s", type, message));
 		return "error_report";
 	}
 
@@ -64,7 +64,7 @@ public class GlobalExceptionHandler {
 		String message = e.getMessage();
 		
 		// 推送至 JSP
-		model.addAttribute(String.format("[Global]%s: 錯誤訊息-%s", type, message));
+		model.addAttribute("message", String.format("[Global]%s: 錯誤訊息-%s", type, message));
 		return "error_report";
 	}
 	
@@ -76,7 +76,7 @@ public class GlobalExceptionHandler {
 		String message = e.getMessage();
 		
 		// 推送至 JSP
-		model.addAttribute(String.format("[Global]%s: 錯誤訊息-%s", type, message));
+		model.addAttribute("message", String.format("[Global]%s: 錯誤訊息-%s", type, message));
 		return "error_report";
 	}
 	
@@ -88,7 +88,7 @@ public class GlobalExceptionHandler {
 		String message = e.getMessage();
 		
 		// 推送至 JSP
-		model.addAttribute(String.format("[Global]%s: 錯誤訊息-%s", type, message));
+		model.addAttribute("message", String.format("[Global]%s: 錯誤訊息-%s", type, message));
 		return "error_report";
 	}
 	
@@ -100,7 +100,7 @@ public class GlobalExceptionHandler {
 		String message = e.getMessage();
 		
 		// 推送至 JSP
-		model.addAttribute(String.format("[Global]%s: 錯誤訊息-%s", type, message));
+		model.addAttribute("message", String.format("[Global]%s: 錯誤訊息-%s", type, message));
 		return "error_report";
 	}
 }

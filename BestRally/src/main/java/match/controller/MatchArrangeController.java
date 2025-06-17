@@ -37,7 +37,7 @@ public class MatchArrangeController {
 			HttpSession session, 
 			Model model) throws MatchPlayerException {
 		
-		// Step1. 呼叫 MatchPlayers
+		// Step1. 呼叫 MatchPlayers (透過 filter 或是 AOP 處理。)
 		// =====================================================================================================================================
 		List<MatchPlayerDTO> matchPlayers = (List<MatchPlayerDTO>) session.getAttribute("matchPlayers");
 		

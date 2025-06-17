@@ -1,5 +1,7 @@
 package match.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,8 @@ import match.exception.TeamException;
 import match.exception.TeamPlayerException;
 import match.model.dto.PlayerDTO;
 import match.model.dto.TeamDTO;
+import match.model.dto.TeamsOfPlayerDTO;
+import match.service.TeamPlayerService;
 import match.service.TeamReadService;
 import match.service.TeamUpdateService;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +35,8 @@ public class TeamController {
 	private TeamReadService teamReadService;
 	@Autowired
 	private TeamUpdateService teamUpdateService;
+	@Autowired
+	private TeamPlayerService temaPlayerService;
 	
 	
 	// 顯示所有球隊列表
@@ -39,6 +45,12 @@ public class TeamController {
 		// 直接回傳資料庫所有 team 內容：
 		model.addAttribute("teamDTOs", teamReadService.findAllTeams());
 		return "team_list";
+	}
+	
+	// 前往建立球隊頁面：
+	@GetMapping("/create")
+	public String getAddTeam() {
+		return "team_create";
 	}
 	
 	// 建立球隊
@@ -52,9 +64,25 @@ public class TeamController {
 		// Step2. 新增球隊，當中會執行新增球隊 + 新增球隊球員 + 球隊更新 Service
 		teamUpdateService.addTeam(playerId, teamDTO);
 		
+		// Step3. 將使用者參與的球隊帶入 session：
+		// 如果有 player 再看看有沒有 team 資訊
+		List<TeamDTO> teamDTOs = null;
+		if(playerDTO != null) {
+			try {
+				// 先找這個 player 的所有 teams
+				TeamsOfPlayerDTO teamsOfPlayerDTO = temaPlayerService.getTeamsFromPlayer(playerDTO.getId());
+				teamDTOs = teamsOfPlayerDTO.getTeamDTOs();
+				session.setAttribute("teamDTOs", teamDTOs);
+				
+			} catch (TeamPlayerException e) {
+				e.printStackTrace();
+				System.err.println("PlayerController: 球員尚未加入球隊。");
+			}
+		}
 		// 回到使用者主頁觀察剛剛建立的球隊
 		return "redirect:/user/home";
 	}
+	
 	
 	// 更新球隊：
 	// 前往更新球隊頁面：

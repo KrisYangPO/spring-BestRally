@@ -4,23 +4,19 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpSession;
 import match.exception.UserException;
 import match.model.dto.PlayerDTO;
 import match.model.dto.TeamDTO;
-import match.model.dto.UserDTO;
-import match.model.dto.UserRegisterDTO;
+import match.model.dto.UserCertDTO;
 import match.service.UserService;
 import match.util.PhotoStorage;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  *  這裡判斷：如果使用者 playerId==capId (teamDTO.player().getId) 
  *  就表示這個隊伍的隊長是這個使用者，並顯示這個球隊更新資訊的連結。
  */
+ 
 
 @Controller
 @RequestMapping("/user")
@@ -67,7 +64,6 @@ public class UserHomePageController {
 			// 將隊長資訊推送到 JSP 
 			session.setAttribute("captainTeamIds", captainTeamIds);
 		}
-
 		// 推送 session 內容與 captainTeamIds 到使用者主頁 (user_home.jsp)。
 		return "user_home";
 	}
@@ -80,42 +76,52 @@ public class UserHomePageController {
 	 */
 	@GetMapping("/home/update")
 	public String getUpdatePage(HttpSession session, Model model) {
-		
 		// 1. 取得 UserDTO 
-		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
-		
+		UserCertDTO userCertDTO = (UserCertDTO) session.getAttribute("userCertDTO");
 		// 2. 直接發送：
-		model.addAttribute("userDTO", userDTO);
-		
+		model.addAttribute("userCertDTO", userCertDTO);
 		// 重新回到更新頁，以免還有其他要更新。
 		return "user_update";
 	}
 	
 	
-	// 取得更新表單：
-	@PutMapping("/home/update")
-	public String updateUser(
-			@RequestParam String username,
-			@RequestParam String password,
-			@RequestParam String email,
-			@RequestParam MultipartFile photo,
-			HttpSession session
-			) throws UserException, IOException {
+	@PostMapping("/home/update")
+	public String updateUserInfo(
+	        @RequestParam(required = false) String username,
+	        @RequestParam(required = false) String rowPassword,
+	        @RequestParam(required = false) String email,
+	        @RequestParam(required = false) MultipartFile photofile,
+	        HttpSession session
+	    ) throws UserException, IOException {
 		
-		// Step1. photo 要以 MultipartFile 格式帶入，再轉成 byte[] 再轉 String 儲存至 DTO
-		String photoFile = PhotoStorage.MultipartFileToBase64(photo);
-		
-		// Step2. 建立新的更新資料：
-		UserRegisterDTO userRegisterDTO = new UserRegisterDTO(username, password, email, photoFile);
-		
-		// Step3. 取得 UserId
-		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
-		Integer userId = userDTO.getId();
-		// 執行更新
-		userService.updateUser(userId, userRegisterDTO);
-		
-		// 2. 註冊成功，回到首頁。
-		return "redirect:/"; 
+		// Step1. 取得登入者的 userId
+	    UserCertDTO userCertDTO = (UserCertDTO) session.getAttribute("userCertDTO");
+	    Integer userId = userCertDTO.getId();
+
+	    // Step2. 判斷哪個資料需要被更新。
+	    if (username != null && !username.isBlank()) {
+	        userService.updateUserName(userId, username);
+	        userCertDTO.setUsername(username);
+	        session.setAttribute("userCertDTO", userCertDTO);
+	    }
+
+	    if (rowPassword != null && !rowPassword.isBlank()) {
+	        userService.updateUserPassword(userId, rowPassword);
+	    }
+
+	    if (email != null && !email.isBlank()) {
+	        userService.updateUserEmail(userId, email);
+	        userCertDTO.setEmail(email);
+	        session.setAttribute("userCertDTO", userCertDTO);
+	    }
+
+	    if (photofile != null && !photofile.isEmpty()) {
+	        String photo = PhotoStorage.MultipartFileToBase64(photofile);
+	        userService.updateUserPhoto(userId, photo);
+	        userCertDTO.setPhoto(photo);
+	        session.setAttribute("userCertDTO", userCertDTO);
+	    }
+
+	    return "redirect:/user/home";
 	}
-	
 }

@@ -16,6 +16,7 @@ import match.exception.TeamPlayerException;
 import match.exception.TeamRefreshException;
 import match.model.dto.PlayerDTO;
 import match.model.dto.TeamDTO;
+import match.model.dto.TeamsOfPlayerDTO;
 import match.service.TeamPlayerService;
 import match.service.TeamReadService;
 import match.util.EmailService;
@@ -34,7 +35,12 @@ public class TeamApplyController {
 	
 	// 向球隊隊長申請
 	@GetMapping("/apply/{teamId}")
-	public String applyTeam(@PathVariable Integer teamId, HttpSession session, Model model, HttpServletRequest request) throws TeamException, TeamPlayerException {
+	public String applyTeam(
+			@PathVariable Integer teamId, 
+			HttpSession session, 
+			Model model, 
+			HttpServletRequest request
+			) throws TeamException, TeamPlayerException {
 		
 		// 回報訊息：
 		String message = null;
@@ -53,6 +59,8 @@ public class TeamApplyController {
 				 System.err.printf("你已經加入此球隊(%s)編號(%s)與申請編號(%s)一樣。",
 						 optTeamDTO.get().getTeamName(), optTeamDTO.get().getId(), teamId);
 				 throw new TeamPlayerException(message);
+			}else {
+				System.out.println("申請加入球隊：使用者還沒加入使用者。");
 			}
 		}
 		
@@ -79,8 +87,9 @@ public class TeamApplyController {
 		try {
 			// Email 傳送的 Service
 		    emailService.sendEmail(capEmail, applyLink);
+		    System.out.println("TeamApplyController: 發送成功。");
 		    // 申請成功，回到列表。
-		    return "redirect: /team/list";
+		    return "redirect:/team";
    
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -95,12 +104,32 @@ public class TeamApplyController {
 	@GetMapping("/accept/{teamId}")
 	public String acceptPlayer(
 			@PathVariable Integer teamId, 
-			@RequestParam Integer playerId)throws TeamRefreshException, TeamPlayerException {
+			@RequestParam Integer playerId,
+			HttpSession session)throws TeamRefreshException, TeamPlayerException {
 		
 		// 執行加入球隊：
 		teamPlayerService.addTeamPlayer(teamId, playerId);
 		
+		// 重新推送 Team 到目前 session：
+		// 取得目前 session 中的 playerId:
+		PlayerDTO playerDTO = (PlayerDTO)session.getAttribute("playerDTO");
+		
+		// 如果有 player 再看看有沒有 team 資訊
+		List<TeamDTO> teamDTOs = null;
+		if(playerDTO != null) {
+			try {
+				// 先找這個 player 的所有 teams
+				TeamsOfPlayerDTO teamsOfPlayerDTO = teamPlayerService.getTeamsFromPlayer(playerDTO.getId());
+				teamDTOs = teamsOfPlayerDTO.getTeamDTOs();
+				session.setAttribute("teamDTOs", teamDTOs);
+				
+			} catch (TeamPlayerException e) {
+				e.printStackTrace();
+				System.err.println("PlayerController: 球員尚未加入球隊。");
+			}
+		}
+		
 		// 回首頁：(之後要改成隊長管理球隊頁面)
-		return "/";
+		return "redirect:/";
 	}
 }

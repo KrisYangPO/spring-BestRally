@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import match.exception.UserCertException;
 import match.model.dto.PlayerDTO;
 import match.model.dto.TeamDTO;
+import match.model.dto.TeamsOfPlayerDTO;
 import match.model.dto.UserCertDTO;
 import match.service.UserCertService;
 import match.service.UserLoginSessionService;
@@ -62,7 +63,6 @@ public class UserLoginController {
 		// 如果成功執行就會回傳 UserCertDTO 物件，錯誤就回傳 UserCertException.
 		try {
 			UserCertDTO userCertDTO = userCertService.loginGetCert(username, password);
-			
 			// Step2. 檢查是否有 player 和 team 資訊：
 			// -------------------------------------------------------------------------------------------
 			// 檢查有沒有 Player：
@@ -71,7 +71,12 @@ public class UserLoginController {
 			// 如果有 player 再看看有沒有 team 資訊
 			List<TeamDTO> teamDTOs = null;
 			if(playerDTO != null) {
-				teamDTOs = userLoginSessionService.checkLoginTeam(playerDTO).getTeamDTOs();
+				// 先找這個 player 的所有 teams
+				TeamsOfPlayerDTO teamsOfPlayerDTO = userLoginSessionService.checkLoginTeam(playerDTO);
+				// 再把所有 teams 取出。
+				if(teamsOfPlayerDTO != null) {
+					teamDTOs = teamsOfPlayerDTO.getTeamDTOs();
+				}
 			}
 			
 			// Step3. 儲存資訊到 session：
@@ -107,6 +112,6 @@ public class UserLoginController {
 		
 		// 直接刪除 session
 		session.invalidate();
-		return "/";
+		return "redirect:/";
 	}
 }
