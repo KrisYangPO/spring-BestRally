@@ -3,9 +3,6 @@ package match.service.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import javax.print.attribute.PrintServiceAttribute;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -184,6 +181,7 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 	
 	// 更新勝場與總場次。
 	@Override
+	@Transactional
 	public void updateTeamPlayerMatchData(Integer teamId, Integer playerId, Integer winGame, Integer total) throws TeamPlayerException  {
 		// Step1. 確認 teamId 
 		Optional<Team> optTeam = teamRepository.findById(teamId);

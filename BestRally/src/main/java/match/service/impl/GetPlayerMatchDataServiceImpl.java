@@ -2,6 +2,8 @@ package match.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 import match.exception.TeamPlayerException;
 import match.model.dto.MatchPlayerDTO;
 import match.service.GetPlayerMatchDataService;
@@ -16,6 +18,7 @@ public class GetPlayerMatchDataServiceImpl implements GetPlayerMatchDataService 
 	
 	// 由 session 取得對戰結束後的 matchPlayers 所有當日參賽球員。
 	@Override
+	@Transactional
 	public void GetMatchResult(MatchPlayerDTO matchPlayerDTO) throws TeamPlayerException {
 		// 取得 MatchPlayerDTO 的所有資訊，直接更新：
 		teamPlayerService.updateTeamPlayerMatchData(

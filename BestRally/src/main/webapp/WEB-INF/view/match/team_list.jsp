@@ -55,7 +55,7 @@
             color: black;
             border: 2px solid black;
             padding: 8px 16px;
-            font-size: 16px;
+            font-size: 25px;
             cursor: pointer;
             border-radius: 5px;
             transition: background-color 0.2s, transform 0.2s;

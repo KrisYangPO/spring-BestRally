@@ -27,8 +27,12 @@ public class MatchPlayerController {
 	private PlayerService playerService;
 	
 	// 將球隊名冊人員加入備戰隊伍(matchPlayers)
-	@GetMapping("/teamplayers/{teamId}")
-	public String addMatchPlayer(@PathVariable Integer teamId, @RequestParam Integer playerId, Model model, HttpSession session) throws PlayerException {
+	@GetMapping("/teamplayers/add/{teamId}")
+	public String addMatchPlayer(
+			@PathVariable Integer teamId, 
+			@RequestParam Integer playerId, 
+			Model model, 
+			HttpSession session) throws PlayerException {
 		
 		// Step1. 建立對戰Session表單，並確認對戰Session表單是否已經建立好，
 		// ====================================================================================================================
@@ -101,7 +105,7 @@ public class MatchPlayerController {
 		session.setAttribute("matchPlayers", matchPlayers);
 		
 		// 重新導向至: match_teamPlayerList
-		return "redirect:/match/teamList/" + teamId;
+		return "redirect:/match/teamlist/" + teamId;
 	}
 	
 	
@@ -115,7 +119,7 @@ public class MatchPlayerController {
 		if(playerId == 0000) {
 			session.removeAttribute("matchPlayers");
 			session.removeAttribute("battlePlayers");
-			return "redirect:/match/teamList/" + teamId;
+			return "redirect:/match/teamlist/" + teamId;
 		}
 		
 		// 將特定 playerId 刪除：
@@ -131,7 +135,7 @@ public class MatchPlayerController {
 		// 重新載入Session：
 		session.setAttribute("matchPlayers", matchPlayers);
 		
-		return "redirect:/match/teamList/" + teamId;
+		return "redirect:/match/teamlist/" + teamId;
 	}
 	
 }

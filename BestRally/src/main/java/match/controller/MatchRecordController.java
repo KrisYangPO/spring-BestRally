@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import match.exception.MatchPlayerException;
 import match.model.dto.MatchPlayerDTO;
 import match.service.SetPlayerMatchService;
@@ -28,6 +29,7 @@ public class MatchRecordController {
 	
 	// 輸入對戰成員的勝負後，就可以發送請求到這個方法紀錄勝負。
 	@PostMapping("/record/{teamId}")
+	@Transactional
 	public String recordBattle(
 			@PathVariable Integer teamId,
 			@RequestParam Integer groupNum,
@@ -39,16 +41,22 @@ public class MatchRecordController {
 		// Step0. 處理 matchResult Map:
 		// =====================================================================================================================================
 		// 將 result_3=1, result_4=0 這類轉為 Map<String, Integer>
-		Map<String, Integer> matchResult = new HashMap<>();
-		int winCount = 0;
-		for (Map.Entry<String, String> entry : matchResultRaw.entrySet()) {
-		    try {
-		        matchResult.put(entry.getKey(), Integer.parseInt(entry.getValue()));
-		        winCount += Integer.parseInt(entry.getValue());
-		    } catch (NumberFormatException e) {
-		        System.err.println("轉換對戰結果失敗: " + entry);
-		    }
-		}
+		Map<String, Integer> matchResult = matchResultRaw.entrySet().stream()
+			    .filter(e -> e.getKey().startsWith("result_"))
+			    .collect(Collectors.toMap(
+			        Map.Entry::getKey,
+			        e -> {
+			            try {
+			                return Integer.parseInt(e.getValue());
+			            } catch (NumberFormatException ex) {
+			                System.err.println("轉換對戰結果失敗: " + e);
+			                return 0;
+			            }
+			        }
+			    ));
+		
+		// 計算勝場總和：
+		int winCount = matchResult.values().stream().mapToInt(Integer::intValue).sum();
 		
 		// 確認你輸入的勝利數一場只會有兩個 (雙打勝利方就是兩位)
 		if(winCount != 2) {

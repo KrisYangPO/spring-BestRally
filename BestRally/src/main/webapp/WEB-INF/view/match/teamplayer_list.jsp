@@ -57,7 +57,7 @@
 
         .btn {
             padding: 6px 12px;
-            background-color: #f44336;
+            background-color: #ff7070;
             color: white;
             border: none;
             border-radius: 8px;
@@ -76,18 +76,17 @@
         }
 
         .back-btn button {
-            background-color: #388e3c;
-            color: white;
+            background-color: white;
+            color: black;
             padding: 10px 20px;
-            font-size: 16px;
-            border: none;
+            border: 2px solid black;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 105%
+            font-size: 120%
         }
 
         .back-btn button:hover {
-            background-color: #2e7d32;
+            background-color: #d9d9d9;
         }
 
         .no-members {
@@ -138,7 +137,7 @@
     </table>
 
     <div class="back-btn">
-        <button onclick="history.back()">返回上一頁</button>
+        <button onclick="history.back()">回上一頁</button>
     </div>
 
     <!-- ✅ DataTables 初始化 -->

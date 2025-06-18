@@ -53,6 +53,6 @@ public class TeamPlayerController {
 			@RequestParam Integer teamPlayerId) throws TeamPlayerException {
 		// 直接執行刪除：
 		teamPlayerService.removeTeamPlayer(teamPlayerId);
-		return "redirect:/teamplayer/list" + teamId;
+		return "redirect:/teamplayer/list/" + teamId;
 	}
 }

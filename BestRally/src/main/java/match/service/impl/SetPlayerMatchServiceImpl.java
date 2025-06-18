@@ -60,10 +60,8 @@ public class SetPlayerMatchServiceImpl implements SetPlayerMatchService {
 			currentTimeList.add(i);
 		}
 		
-		
 		// 目前總場數的有幾種：
 		int currentTimesSize = currentTimeList.size();
-		
 		
 		// 2. 對 matchPlayers 進行排序 (根據 matchPlayer 的總場數排序)：
 		Comparator<MatchPlayerDTO> sortByTotalMatch = (MatchPlayerDTO m1, MatchPlayerDTO m2) -> {return m1.getTotalMatch() - m2.getTotalMatch();};

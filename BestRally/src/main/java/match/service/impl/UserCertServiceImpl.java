@@ -16,10 +16,7 @@ import match.util.Hash;
 
 @Service
 public class UserCertServiceImpl implements UserCertService {
-	
-	@Autowired
-    private UserMapper userMapper;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 	

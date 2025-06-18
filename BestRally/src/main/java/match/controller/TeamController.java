@@ -76,7 +76,7 @@ public class TeamController {
 				
 			} catch (TeamPlayerException e) {
 				e.printStackTrace();
-				System.err.println("PlayerController: 球員尚未加入球隊。");
+				System.err.println("TeamController: 球員尚未加入球隊。");
 			}
 		}
 		// 回到使用者主頁觀察剛剛建立的球隊
@@ -103,11 +103,30 @@ public class TeamController {
 			@RequestParam String teamName,
 			@RequestParam String place,
 			@RequestParam Boolean recruit,
-			@RequestParam Integer playerId) throws TeamException {
+			@RequestParam Integer playerId,
+			HttpSession session) throws TeamException {
 		
 		// 這裡不能直接帶入 session Player，因為可能要更新隊長。
 		// 更新：
 		teamUpdateService.updateTeam(teamId, teamName, place, recruit, playerId);
+		
+		// 將使用者參與的球隊帶入 session：
+		// 先取得登入使用者的 playerDTO
+		PlayerDTO playerDTO = (PlayerDTO) session.getAttribute("playerDTO");
+		// 如果有 player 再看看有沒有 team 資訊
+		List<TeamDTO> teamDTOs = null;
+		if(playerDTO != null) {
+			try {
+				// 先找這個 player 的所有 teams
+				TeamsOfPlayerDTO teamsOfPlayerDTO = temaPlayerService.getTeamsFromPlayer(playerDTO.getId());
+				teamDTOs = teamsOfPlayerDTO.getTeamDTOs();
+				session.setAttribute("teamDTOs", teamDTOs);
+				
+			} catch (TeamPlayerException e) {
+				e.printStackTrace();
+				System.err.println("TeamController: 球員尚未加入球隊。");
+			}
+		}
 		
 		// 更新完回主頁觀察：
 		return "redirect:/user/home";

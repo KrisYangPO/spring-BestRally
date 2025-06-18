@@ -1,5 +1,7 @@
 package match.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import match.exception.MatchPlayerException;
 import match.exception.TeamPlayerException;
 import match.model.dto.MatchPlayerDTO;
@@ -24,6 +27,7 @@ public class MatchReckonController {
 	
 	// 點擊結算今日對戰結果
 	@GetMapping("{teamId}")
+	@Transactional
 	public String closeGame(
 			@PathVariable Integer teamId,
 			Model model,
@@ -48,6 +52,12 @@ public class MatchReckonController {
 		}
 		
 		// 將紀錄傳給結算畫面：
+		// 進行排序：
+		Comparator<MatchPlayerDTO> mpWin = (MatchPlayerDTO mp1, MatchPlayerDTO mp2) -> {
+			return mp1.getOneWinRate() < mp2.getOneWinRate()?1:-1; };
+			
+		// 使用 Collections 進行排序
+		Collections.sort(matchPlayers, mpWin);
 		model.addAttribute("matchPlayers", matchPlayers);
 		return "match_reckon";
 	}

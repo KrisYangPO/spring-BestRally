@@ -3,8 +3,8 @@ package match.repository;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -71,21 +71,23 @@ public interface TeamPlayerRepository extends JpaRepository<TeamPlayer, Integer>
 	// 計算 WinRate
 	// ============================================================================================================================
 	// 執行程式，就會計算 winRate (用 native SQL 計算)
+	// @Modifying 告訴 JPA 這個執行查詢不需要回傳結果。
 	@Modifying
 	@Query(value = """
 			UPDATE `team_player`
 			SET win_rate = 100*(win_game*1.0/total) 
-			WHERE team_id =:teamId and player_id =:playerId and total_match != 0
+			WHERE team_id =:teamId and player_id =:playerId
 			""", nativeQuery = true)
 	public void updateWinRate(Integer teamId, Integer playerId);
 	
 	
 	// 執行程式，就計算 winRate (用 native SQL 計算)
+	// @Modifying 告訴 JPA 這個執行查詢不需要回傳結果。
 	@Modifying
 	@Query(value = """
 			UPDATE `team_player`
 			SET win_game =:winGame, total=:total
-			WHERE team_id=:teamId AND player_id=:playerId AND total_match != 0
+			WHERE team_id=:teamId AND player_id=:playerId
 			""", nativeQuery = true)
 	public void updateMatchData(Integer teamId, Integer playerId, Integer winGame, Integer total);
 	// ============================================================================================================================

@@ -16,6 +16,7 @@ public class MatchPlayerDTO {
 	private Integer teamId;
 	
 	// 自訂 constructor
+	// 如果用 AllArgsConstructor 會把下面 matchRecord, totalMatch, winGame 也求進來。
 	public MatchPlayerDTO(Integer playerId, Integer userId, Integer teamId, String username, Integer playerLevel) {
 		this.playerId = playerId;
 		this.userId = userId;
@@ -34,6 +35,9 @@ public class MatchPlayerDTO {
 	// 計算勝場數：挑選出 matchRecord 裡面為 1 的總和，就是總勝場。
 	private Integer winGame = 0;
 	
+	// 計算單次比賽的勝率：
+	private Double oneWinRate = 0.0;
+	
 	
 	// 將對戰紀錄加入到 matchRecord
 	public void setMatchRecord(Integer score) {
@@ -50,5 +54,8 @@ public class MatchPlayerDTO {
 		
 		// 紀錄總場次數
 		this.totalMatch = matchRecord.size();
+		
+		// 計算 winRate
+		this.oneWinRate = (this.winGame*1.0)/this.totalMatch;
 	}
 }

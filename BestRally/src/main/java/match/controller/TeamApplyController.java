@@ -17,6 +17,7 @@ import match.exception.TeamRefreshException;
 import match.model.dto.PlayerDTO;
 import match.model.dto.TeamDTO;
 import match.model.dto.TeamsOfPlayerDTO;
+import match.service.TeamApplicationService;
 import match.service.TeamPlayerService;
 import match.service.TeamReadService;
 import match.util.EmailService;
@@ -31,6 +32,8 @@ public class TeamApplyController {
 	private EmailService emailService;
 	@Autowired
 	private TeamPlayerService teamPlayerService;
+	@Autowired
+	private TeamApplicationService teamApplicationService;
 	
 	
 	// 向球隊隊長申請

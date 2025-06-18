@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jdbc.repository.query.Modifying;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -99,6 +98,7 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
 	
 	// 自動轉換 recruit 功能：
 	// 只要執行這個功能，就向 SQL 發送切換 recruit 布林值的結果。
+	// @Modifying 告訴 JPA 這個執行查詢不需要回傳結果。
 	@Modifying
 	@Query(value = "update `team` SET recruit = NOT recruit where team_id =:teamId", nativeQuery = true)
 	public void updateRecruit(Integer teamId);
