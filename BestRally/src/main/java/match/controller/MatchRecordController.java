@@ -125,6 +125,6 @@ public class MatchRecordController {
 		session.setAttribute("matchPlayers", updatedMatchPlayers);
 		session.setAttribute("battlePlayers", updatedBattlePlayers);
 		
-		return "redirect:/match/teamlist/" + teamId;
+		return "redirect:/match/teamlist/" + teamId + "#arrange";
 	}
 }

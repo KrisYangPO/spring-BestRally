@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import match.model.entity.Player;
 
 @Getter
 @Setter
@@ -13,9 +14,9 @@ public class TeamApplicationDTO {
 	
 	private Integer id;
 	private Integer userId;
+	private String username;
 	private String email;
-	private Integer playerId;
-	private Integer playerLevel;
+	private Player player;
 	private Integer teamId;
 	private String teamName;
 }

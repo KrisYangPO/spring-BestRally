@@ -102,6 +102,28 @@
             background-color: #add8e6;
         }
         
+        /* 顯示數量記號在特定位置 */
+       	.inline-group {
+		    position: relative;
+		    display: inline-flex;
+		    align-items: center;
+		    gap: 10px;
+		}
+		
+		.item-count {
+		    position: absolute;
+		    top: -10px;
+		    left: -10px;
+		    background-color: red;
+		    color: white;
+		    border-radius: 50%;
+		    width: 20px;
+		    height: 20px;
+		    line-height: 20px;
+		    text-align: center;
+		    font-size: 14px;
+		    font-weight: bold;
+		}
     </style>
 </head>
 <body>
@@ -168,7 +190,12 @@
                         <c:choose>
                             <c:when test="${isCaptain}">
                             	<div class="inline-group">
-                            		<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/teamplayer/list/${team.id}'">管理球隊</button>
+                            		<c:set var="applyCount" value="${teamApplys[team.id]}" />
+					                <c:if test="${applyCount > 0}">
+					                    <span class="item-count">
+					                        <c:out value="${applyCount}" />
+					                    </span>
+					                </c:if><button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/teamplayer/list/${team.id}'">管理球隊</button>
                             		<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/team/update/${team.id}'">更新球隊資訊</button>
                             	</div>
                             </c:when>

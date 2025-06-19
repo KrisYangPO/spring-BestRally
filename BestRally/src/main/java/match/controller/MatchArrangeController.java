@@ -101,7 +101,7 @@ public class MatchArrangeController {
 				
 		// 累加：groupNum++;
 		groupNum++;
-		return "redirect:/match/teamlist/" + teamId;
+		return "redirect:/match/teamlist/" + teamId +"#arrange";
 	}
 	
 	
@@ -146,7 +146,10 @@ public class MatchArrangeController {
 		// setPlayerMatchService.arrangeBattle 會透過 iterator 讀取 MatchPlayers，會直接改變記憶體的 MatchPlayers
 		// 在這裡就需要直接對 MatchPlayer 更改。
 		// 用 Iterator 遍歷並安全移除
-		Iterator<MatchPlayerDTO> iterator = matchPlayers.iterator();
+		Iterator<MatchPlayerDTO> iterator = null;
+		if(matchPlayers != null) {
+			iterator = matchPlayers.iterator();
+		}
 		while (iterator.hasNext()) {
 		    MatchPlayerDTO mp = iterator.next();
 		    if (players.contains(mp.getUserName())) {
@@ -203,7 +206,7 @@ public class MatchArrangeController {
 				
 		// 累加：groupNum++;
 		groupNum++;
-		return "redirect:/match/teamlist/" + teamId;
+		return "redirect:/match/teamlist/" + teamId + "#manual";
 	}
 	
 	
@@ -265,6 +268,6 @@ public class MatchArrangeController {
 		session.setAttribute("matchPlayers", resetMatchPlayers);
 		session.setAttribute("battlePlayers", resetBattlePlayers);
 		
-		return "redirect:/match/teamlist/" + teamId;
+		return "redirect:/match/teamlist/" + teamId + "#reset_" + resetGroupNum;
 	}
 }

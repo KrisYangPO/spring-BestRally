@@ -199,13 +199,13 @@
 	            	</td>
 	            </tr>
             </c:forEach>
-<%--             <c:if test="${empty teamApplicationDTOs}">
+            <c:if test="${empty teamApplicationDTOs}">
                 <tr><td colspan="5" class="no-members">目前尚無球員申請此球隊</td></tr>
-            </c:if> --%>
+            </c:if>
     </table>
 
     <div class="back-btn">
-        <button onclick="history.back()">回上一頁</button>
+        <button onclick="location.href='${pageContext.request.contextPath}/user/home'">回上一頁</button>
     </div>
 
     <!-- ✅ DataTables 初始化 -->

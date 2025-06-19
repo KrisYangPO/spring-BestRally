@@ -1,7 +1,9 @@
 package match.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpSession;
+import match.exception.TeamApplicationException;
 import match.exception.UserException;
 import match.model.dto.PlayerDTO;
 import match.model.dto.TeamDTO;
 import match.model.dto.UserCertDTO;
+import match.service.TeamApplicationService;
 import match.service.UserService;
 import match.util.PhotoStorage;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +41,8 @@ public class UserHomePageController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private TeamApplicationService teamApplicationService;
 	
 	// 取得主頁資訊
 	@GetMapping("/home")
@@ -61,8 +67,22 @@ public class UserHomePageController {
 					.map(p->p.getId()) // 將這個隊伍的 teamId 存到 set 當中。
 					.collect(Collectors.toSet());
 			
+			// Step3. 挑出這個 teamId 的申請列表，並且計算總和：
+			Map<Integer, Integer> teamApplys = new HashMap<>();
+			for(Integer id:captainTeamIds) {
+				// 計算申請人數：
+				int count = 0;
+				try {
+					count = teamApplicationService.findByTeamId(id).size();
+				} catch (TeamApplicationException e) {
+					System.err.println("userHome: 球隊目前沒有人申請。");
+				}
+				teamApplys.put(id, count);
+			}
+			
 			// 將隊長資訊推送到 JSP 
 			session.setAttribute("captainTeamIds", captainTeamIds);
+			session.setAttribute("teamApplys", teamApplys);
 		}
 		// 推送 session 內容與 captainTeamIds 到使用者主頁 (user_home.jsp)。
 		return "user_home";

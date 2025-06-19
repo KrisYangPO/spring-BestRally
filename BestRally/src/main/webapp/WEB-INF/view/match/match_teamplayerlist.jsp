@@ -237,7 +237,6 @@
 		
 		        <c:forEach var="player" items="${playerOfTeamDTO.players}">
 	            <tr id="${player.id}">
-	            
 	                <td>${player.id}</td>
 	                <td>${player.user.username}</td>
 	                <td>${player.level}</td>
@@ -276,7 +275,7 @@
 		    		</td>
 		    	</tr>
 		    	</c:forEach>
-		    	<tr>
+		    	<tr id = "manual">
 			    	<td colspan="5" align="center">
 				        <div class="Battle-button-group">
 				        	<div class="button-links" align="center">

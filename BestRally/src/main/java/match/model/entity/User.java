@@ -49,4 +49,5 @@ public class User {
 	// 一個 user 只會有個 player 身份
 	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
 	private Player player;
+	
 }

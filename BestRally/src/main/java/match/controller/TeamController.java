@@ -127,7 +127,6 @@ public class TeamController {
 				System.err.println("TeamController: 球員尚未加入球隊。");
 			}
 		}
-		
 		// 更新完回主頁觀察：
 		return "redirect:/user/home";
 	}

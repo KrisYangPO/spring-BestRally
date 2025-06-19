@@ -51,4 +51,8 @@ public class Player {
 	// 每個球員可以參加多個隊伍，所以可以有多個 teamPlayer 身份
 	@OneToMany(mappedBy = "player")
 	private List<TeamPlayer> teamplayers;
+	
+	// 每個球員可以申請多個隊伍，可以有多筆不同隊伍的 teamApplication
+	@OneToMany(mappedBy="player")
+	private List<TeamApplication> teamApplications;
 }

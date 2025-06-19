@@ -15,13 +15,17 @@ public interface TeamApplicationService {
 	// 找出所有的申請
 	List<TeamApplicationDTO> findAllApplication();
 	
-	// 尋找特定隊伍的申請
-	List<TeamApplicationDTO> findApplicationByTeamId(Integer teamId);
+	// 搜尋特定隊伍的所有申請
+	List<TeamApplicationDTO> findByTeamId(Integer teamId);
+	
+	// 尋找特定球員在隊伍的申請
+	TeamApplicationDTO findByTeamAndPlayerId(Integer teamId, Integer playerId);
 	
 	// 新增申請
 	void addApplication(UserCertDTO userCertDTO, PlayerDTO playerDTO, TeamDTO teamDTO);
 	
 	// 根據id刪除申請
-	void dropApplication(Integer Id);
+	void dropApplication(Integer teamId, Integer playerId);
+	void dropApplication(Integer id);
 	
 }

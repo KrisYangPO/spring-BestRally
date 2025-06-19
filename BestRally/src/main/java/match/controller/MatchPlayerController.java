@@ -105,7 +105,7 @@ public class MatchPlayerController {
 		session.setAttribute("matchPlayers", matchPlayers);
 		
 		// 重新導向至: match_teamPlayerList
-		return "redirect:/match/teamlist/" + teamId;
+		return "redirect:/match/teamlist/" + teamId + "#" + playerId;
 	}
 	
 	
@@ -135,7 +135,7 @@ public class MatchPlayerController {
 		// 重新載入Session：
 		session.setAttribute("matchPlayers", matchPlayers);
 		
-		return "redirect:/match/teamlist/" + teamId;
+		return "redirect:/match/teamlist/" + teamId + "#removePlayer";
 	}
 	
 }

@@ -11,19 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
+import match.exception.TeamApplicationException;
 import match.exception.TeamException;
 import match.exception.TeamPlayerException;
 import match.exception.TeamRefreshException;
 import match.model.dto.PlayerDTO;
 import match.model.dto.TeamDTO;
 import match.model.dto.TeamsOfPlayerDTO;
+import match.model.dto.UserCertDTO;
 import match.service.TeamApplicationService;
 import match.service.TeamPlayerService;
 import match.service.TeamReadService;
 import match.util.EmailService;
 
 @Controller
-@RequestMapping("/team/")
+@RequestMapping("/team")
 public class TeamApplyController {
 	
 	@Autowired
@@ -38,6 +41,7 @@ public class TeamApplyController {
 	
 	// 向球隊隊長申請
 	@GetMapping("/apply/{teamId}")
+	@Transactional
 	public String applyTeam(
 			@PathVariable Integer teamId, 
 			HttpSession session, 
@@ -63,16 +67,16 @@ public class TeamApplyController {
 						 optTeamDTO.get().getTeamName(), optTeamDTO.get().getId(), teamId);
 				 throw new TeamPlayerException(message);
 			}else {
-				System.out.println("申請加入球隊：使用者還沒加入使用者。");
+				System.out.println("TeamApplyController: 使用者還沒加入使用者。");
 			}
 		}
 		
 		
 		// Step2. 呼叫這個隊伍的隊長(Player)資料：
 		// throws TeamException，即將交給 @ExceptionHandler 處理
-		TeamDTO teamDTO = teamReadService.findTeamByTeamId(teamId);
+		TeamDTO applyTeamDTO = teamReadService.findTeamByTeamId(teamId);
 		// 隊長的 email:
-		String capEmail = teamDTO.getPlayer().getUser().getEmail();
+		String capEmail = applyTeamDTO.getPlayer().getUser().getEmail();
 		
 		
 		// Step3. 取得登入使用者的 playerId
@@ -87,13 +91,30 @@ public class TeamApplyController {
 		String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
 		String applyLink = baseUrl + "/team/accept/" + teamId + "?playerId=" + playerId;
 		
+		// 取得 User:
+	    UserCertDTO userCertDTO = (UserCertDTO)session.getAttribute("userCertDTO");
+		
 		try {
 			// Email 傳送的 Service
 		    emailService.sendEmail(capEmail, applyLink);
 		    System.out.println("TeamApplyController: 發送成功。");
+		    
+		    // 建立 teamApplication 申請資料紀錄：
+		    teamApplicationService.addApplication(userCertDTO, playerDTO, applyTeamDTO);
+		    System.out.println("TeamApplyController: 球隊申請紀錄儲存。");
+		    
 		    // 申請成功，回到列表。
 		    return "redirect:/team";
-   
+		    
+		// 球隊申請紀錄出問題
+		}catch (TeamApplicationException ta) {
+			ta.printStackTrace();
+			message = String.format("申請球隊錯誤，球員(%s)申請球隊(%s)出問題：%n%(s)%n",
+					userCertDTO.getUsername(), applyTeamDTO.getTeamName(), ta.getMessage());
+			System.err.println(message);
+			throw new TeamPlayerException(message);
+			
+		// email 出問題
 		}catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("申請球隊錯誤：發送申請email時發生錯誤："+applyLink +"\n"+ e.getMessage());
@@ -103,17 +124,30 @@ public class TeamApplyController {
 	}
 	
 	
+	
 	// 隊長接收請求：
 	@GetMapping("/accept/{teamId}")
+	@Transactional
 	public String acceptPlayer(
 			@PathVariable Integer teamId, 
 			@RequestParam Integer playerId,
 			HttpSession session)throws TeamRefreshException, TeamPlayerException {
 		
+		// Step1. 確認加入球隊
 		// 執行加入球隊：
 		teamPlayerService.addTeamPlayer(teamId, playerId);
 		
-		// 重新推送 Team 到目前 session：
+		// 將 teamApplication 紀錄刪除。
+		try {
+			teamApplicationService.dropApplication(teamId, playerId);
+			
+		} catch (TeamApplicationException e) {
+			e.printStackTrace();
+			System.err.println("隊長接受申請Controller，刪除申請紀錄失敗:"+e.getMessage());
+			throw new TeamPlayerException("隊長接受申請Controller，刪除申請紀錄失敗:"+e.getMessage());
+		}
+		
+		// Step2. 重新推送 Team 到目前 session：
 		// 取得目前 session 中的 playerId:
 		PlayerDTO playerDTO = (PlayerDTO)session.getAttribute("playerDTO");
 		
@@ -133,6 +167,19 @@ public class TeamApplyController {
 		}
 		
 		// 回首頁：(之後要改成隊長管理球隊頁面)
-		return "redirect:/";
+		return "redirect:/teamplayer/list/" + teamId;
+	}
+	
+	
+	// 使用者主頁，如果是隊長就可以進入球隊管理，
+	// 管理的時候可以看到有球員申請加入球隊，
+	// 這個時候可以點擊拒絕按鈕將使用者申請駁回。
+	
+	@GetMapping("/reject/{teamId}")
+	public String rejectApply(@PathVariable Integer teamId, @RequestParam Integer applyId) {
+		// 直接刪除
+		teamApplicationService.dropApplication(applyId);
+		// 回到原處。
+		return "redirect:/teamplayer/list/" + teamId;
 	}
 }

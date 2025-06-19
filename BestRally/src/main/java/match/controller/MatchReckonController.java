@@ -39,6 +39,11 @@ public class MatchReckonController {
 		// 一般來說，這裡面的 matchPlayer 都已經紀錄好所有的對戰數據，像是勝場，總場次，
 		// 所以這裡就要想辦法將每個 matchPlayers 的數據傳到後端。
 		
+		// 要確認 MatchPlayers 存在
+		if(matchPlayers == null) {
+			throw new MatchPlayerException("MatchReckonController: 結算錯誤：備戰隊伍沒有人。今日沒有比賽。");
+		}
+		
 		// Step2. 將每個 matchPlayer 對戰資訊紀錄至後端：
 		for(MatchPlayerDTO mp: matchPlayers) {
 			try {
