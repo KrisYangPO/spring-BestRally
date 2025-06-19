@@ -67,10 +67,11 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 			TeamsOfPlayerDTO teamsOfPlayerDTO = getTeamsFromPlayer(playerId);
 			List<TeamDTO> teamDTOs = teamsOfPlayerDTO.getTeamDTOs();
 			
-			// 確認這個 teamId 是否存在球員所加入的球隊：
-			// 這裡要強制傳出 Exception，因為在 Step2 檢查中，
-			// 是要檢查這個 player 是否已經加入球隊，如果有就不能加入，
-			// 所以要傳出例外終止這個程式。
+			/* 確認這個 teamId 是否存在球員所加入的球隊：
+			 * 這裡要強制傳出 Exception，因為在 Step2 檢查中，
+			 * 是要檢查這個 player 是否已經加入球隊，如果有就不能加入，
+			 * 所以要傳出例外終止這個程式。
+			 */
 			boolean exists = teamDTOs.stream().anyMatch(t -> t.getId().equals(teamId));
 			if(exists) {
 				String message = String.format("TeamPlayerService: 新增球隊球員失敗，這個球員(%s)已經加入球隊(%s)了",
@@ -78,10 +79,11 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 				System.err.println(message);
 				throw new TeamPlayerAlreadyExistException(message);
 			}
-		// 但是前面在執行 TeamsOfPlayerDTO teamsOfPlayerDTO = getTeamsFromPlayer(playerId);
-		// 可能會發生這個球員還沒加入任何球隊，所以他在執行這段時會發生 Exception，
-		// 但是這是實務上會發生的事，因此要用 try-catch 在這裏將 Exception 處理掉，
-		// 不要透過例外傳出，導致“因為使用者沒有加入任何球隊”，而中止 addTeamPlayer。
+		/* 但是前面在執行 TeamsOfPlayerDTO teamsOfPlayerDTO = getTeamsFromPlayer(playerId);
+		 * 可能會遇到 “這個球員還沒加入任何球隊” 的狀況，所以他在執行這段時會產生例外拋出，
+		 * 但這是實務上有可能遇到的事，因此要用 try-catch 在這裡將 Exception 處理掉，
+		 * 不要透過例外傳出，導致“因為使用者沒有加入任何球隊”，而中止 addTeamPlayer。
+		 */
 		} catch (TeamPlayerNotFoundException e) {
 			e.printStackTrace();
 			System.err.print("TeamPlayerService: 球員尚未加入任何球隊。");
@@ -104,7 +106,32 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 			throw new TeamRefreshException("TeamPlayerService: 球員加入球隊後，更新隊伍數據失敗。" + e.getMessage());
 		}
 	}
-
+	
+	
+	// 刪除球員：
+	@Override
+	public void removeTeamPlayer(Integer teamPlayerId) throws TeamPlayerException {
+		// Step1. 先查詢這個球隊球員：
+		TeamPlayer teamPlayer = findTeamPlayerById(teamPlayerId);
+		// Step2. 取得這個球隊球員的 teamId:
+		Integer teamId = teamPlayer.getTeam().getId();
+		// Step3. 刪除球員：
+		teamPlayerRepository.deleteById(teamPlayerId);
+		
+		// Step4. 執行球隊更新：
+		try {
+			// 重新計算球隊資訊
+			teamRefreshDataService.AFTeamPlayerUpdate(teamId);
+			System.out.printf("TeamPlayerService: 刪除球隊球員後(%s)，更新球隊(%s)成功。%n", teamPlayerId, teamId);
+			
+		} catch (TeamRefreshException e) {
+			e.printStackTrace();
+			String message = "TeamPlayerService: 刪除球隊球員後，更新球隊資訊出問題：" + e.getMessage();
+			System.err.println(message);
+			throw new TeamPlayerException(message);
+		}
+	}
+	
 	
 	// 查詢所有 teamPlayers 
 	@Override
@@ -199,32 +226,7 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 		// Step4. 直接更新 winRate:
 		updateTeamPlayerWinRatio(teamId, playerId);
 	}
-	
-	
-	// 刪除球員：
-	@Override
-	public void removeTeamPlayer(Integer teamPlayerId) throws TeamPlayerException {
-		// Step1. 先查詢這個球隊球員：
-		TeamPlayer teamPlayer = findTeamPlayerById(teamPlayerId);
-		// Step2. 取得這個球隊球員的 teamId:
-		Integer teamId = teamPlayer.getTeam().getId();
-		// Step3. 刪除球員：
-		teamPlayerRepository.deleteById(teamPlayerId);
-		
-		// Step4. 執行球隊更新：
-		try {
-			// 重新計算球隊資訊
-			teamRefreshDataService.AFTeamPlayerUpdate(teamId);
-			System.out.printf("TeamPlayerService: 刪除球隊球員後(%s)，更新球隊(%s)成功。%n", teamPlayerId, teamId);
-			
-		} catch (TeamRefreshException e) {
-			e.printStackTrace();
-			String message = "TeamPlayerService: 刪除球隊球員後，更新球隊資訊出問題：" + e.getMessage();
-			System.err.println(message);
-			throw new TeamPlayerException(message);
-		}
-	}
-	
+
 	
 	// 取得這個球員(playerId)所參與的球隊資訊：
 	@Override
