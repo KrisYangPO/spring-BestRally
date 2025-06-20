@@ -460,7 +460,7 @@
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             color: white;
             border-radius: 20px;
-            font-size: 1rem;
+            font-size: 1.3rem;
             font-weight: 600;
         }
 

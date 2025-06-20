@@ -90,7 +90,7 @@
         .box-wrapper {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
             width: 100%;
             max-width: 1200px;
             padding: 0 1rem;

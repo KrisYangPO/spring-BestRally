@@ -29,7 +29,7 @@ public interface TeamPlayerService {
 	List<TeamPlayerDTO> findByPlayerId(Integer playerId) throws TeamPlayerException;
 	
 	// 刪除球隊球員：
-	void removeTeamPlayer(Integer teamPlayerId) throws TeamPlayerException;
+	void removeTeamPlayer(Integer teamPlayerId, Integer teamId) throws TeamPlayerException;
 	
 	// 更新 TeamPlayer 資訊：
 	void updateTeamPlayerWinRatio(Integer teamId, Integer playerId) throws TeamPlayerException;

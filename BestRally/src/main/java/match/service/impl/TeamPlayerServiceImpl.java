@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import match.annotation.DoTeamRefresh;
 import match.exception.TeamPlayerAlreadyExistException;
 import match.exception.TeamPlayerException;
 import match.exception.TeamPlayerNotFoundException;
@@ -48,6 +49,7 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 	// 要先確認這個球隊編號，與球員編號都有紀錄資料在資料庫。
 	@Override
 	@Transactional
+	@DoTeamRefresh(teamIdParam = "teamId")
 	public void addTeamPlayer(Integer teamId, Integer playerId) throws TeamPlayerException, TeamRefreshException {
 		
 		// Step1. 確認 team 的 id 沒問題
@@ -95,41 +97,42 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 		teamPlayer.setTeam(optTeam.get());
 		teamPlayerRepository.save(teamPlayer);
 		
-		// Step4. 更新隊伍數據：
-		try {
-			teamRefreshDataService.AFTeamPlayerUpdate(teamId);
-			System.out.printf("TeamPlayerService: 新稱球員後(%s)，更新球隊(%s)成功。%n", playerId, teamId);
-		
-		}catch (TeamRefreshException e) {
-			e.printStackTrace();
-			System.err.printf("TeamPlayerService: 球員加入球隊後，更新隊伍數據失敗。%n%s%n" + e.getMessage());
-			throw new TeamRefreshException("TeamPlayerService: 球員加入球隊後，更新隊伍數據失敗。" + e.getMessage());
-		}
+//		// Step4. 更新隊伍數據：
+//		try {
+//			teamRefreshDataService.AFTeamPlayerUpdate(teamId);
+//			System.out.printf("TeamPlayerService: 新稱球員後(%s)，更新球隊(%s)成功。%n", playerId, teamId);
+//		
+//		}catch (TeamRefreshException e) {
+//			e.printStackTrace();
+//			System.err.printf("TeamPlayerService: 球員加入球隊後，更新隊伍數據失敗。%n%s%n" + e.getMessage());
+//			throw new TeamRefreshException("TeamPlayerService: 球員加入球隊後，更新隊伍數據失敗。" + e.getMessage());
+//		}
 	}
 	
 	
 	// 刪除球員：
 	@Override
-	public void removeTeamPlayer(Integer teamPlayerId) throws TeamPlayerException {
+	@DoTeamRefresh(teamIdParam = "teamId")
+	public void removeTeamPlayer(Integer teamPlayerId, Integer teamId) throws TeamPlayerException {
 		// Step1. 先查詢這個球隊球員：
 		TeamPlayer teamPlayer = findTeamPlayerById(teamPlayerId);
-		// Step2. 取得這個球隊球員的 teamId:
-		Integer teamId = teamPlayer.getTeam().getId();
+//		// Step2. 取得這個球隊球員的 teamId:
+//		Integer teamId = teamPlayer.getTeam().getId();
 		// Step3. 刪除球員：
 		teamPlayerRepository.deleteById(teamPlayerId);
 		
-		// Step4. 執行球隊更新：
-		try {
-			// 重新計算球隊資訊
-			teamRefreshDataService.AFTeamPlayerUpdate(teamId);
-			System.out.printf("TeamPlayerService: 刪除球隊球員後(%s)，更新球隊(%s)成功。%n", teamPlayerId, teamId);
-			
-		} catch (TeamRefreshException e) {
-			e.printStackTrace();
-			String message = "TeamPlayerService: 刪除球隊球員後，更新球隊資訊出問題：" + e.getMessage();
-			System.err.println(message);
-			throw new TeamPlayerException(message);
-		}
+//		// Step4. 執行球隊更新：
+//		try {
+//			// 重新計算球隊資訊
+//			teamRefreshDataService.AFTeamPlayerUpdate(teamId);
+//			System.out.printf("TeamPlayerService: 刪除球隊球員後(%s)，更新球隊(%s)成功。%n", teamPlayerId, teamId);
+//			
+//		} catch (TeamRefreshException e) {
+//			e.printStackTrace();
+//			String message = "TeamPlayerService: 刪除球隊球員後，更新球隊資訊出問題：" + e.getMessage();
+//			System.err.println(message);
+//			throw new TeamPlayerException(message);
+//		}
 	}
 	
 	

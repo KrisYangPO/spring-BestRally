@@ -27,7 +27,7 @@
 
         table {
             margin: 40px auto;
-            width: 30%;
+            width: 50%;
             border-collapse: collapse;
             border: 2px solid white;
         }
@@ -36,27 +36,27 @@
             border: 1px solid white;
             padding: 15px;
             text-align: center;
-            font-size: 18px;
+            font-size: 1.7rem;
         }
 
         input[type="text"], input[type="number"], select {
-            width: 95%;
-            padding: 6px;
-            font-size: 16px;
+            width: 90%;
+            padding: 7px;
+            font-size: 1.5rem;
             text-align: center;
             border-radius: 4px;
-            border: none;
+            border: 1px solid black;
         }
 
         .button-group {
             margin-top: 30px;
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 30px;
         }
 
         .btn {
-            font-size: 18px;
+            font-size: 1.2rem;
             padding: 10px 20px;
             background-color: white;
             color: black;

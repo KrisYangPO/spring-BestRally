@@ -42,7 +42,7 @@ public class TeamRefreshDataServiceImpl implements TeamRefreshDataService {
 
 
 	@Override
-	@Transactional
+//	@Transactional
 	public Boolean AFTeamPlayerUpdate(Integer teamId) throws TeamRefreshException {
 		
 		// Step1. 球隊總人數：

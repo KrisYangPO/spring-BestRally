@@ -17,7 +17,9 @@ import match.exception.TeamApplicationException;
 import match.exception.TeamPlayerException;
 import match.model.dto.PlayerDTO;
 import match.model.dto.TeamApplicationDTO;
+import match.model.dto.TeamDTO;
 import match.model.dto.TeamPlayerDTO;
+import match.model.dto.TeamsOfPlayerDTO;
 import match.repository.TeamApplicationRepository;
 import match.service.TeamApplicationService;
 import match.service.TeamPlayerService;
@@ -67,9 +69,29 @@ public class TeamPlayerController {
 	@DeleteMapping("/list/delete/{teamId}")
 	public String deleteTeamPlayer(
 			@PathVariable Integer teamId, 
-			@RequestParam Integer teamPlayerId) throws TeamPlayerException {
+			@RequestParam Integer teamPlayerId,
+			HttpSession session) throws TeamPlayerException {
 		// 直接執行刪除：
-		teamPlayerService.removeTeamPlayer(teamPlayerId);
-		return "redirect:/teamplayer/list/" + teamId;
+		teamPlayerService.removeTeamPlayer(teamPlayerId, teamId);
+		
+		// 取得目前 session 中的 playerId:
+		PlayerDTO playerDTO = (PlayerDTO)session.getAttribute("playerDTO");
+		
+		// 如果有 player 再看看有沒有 team 資訊
+		List<TeamDTO> teamDTOs = null;
+		if(playerDTO != null) {
+			try {
+				// 先找這個 player 的所有 teams
+				TeamsOfPlayerDTO teamsOfPlayerDTO = teamPlayerService.getTeamsFromPlayer(playerDTO.getId());
+				teamDTOs = teamsOfPlayerDTO.getTeamDTOs();
+				session.setAttribute("teamDTOs", teamDTOs);
+				
+			} catch (TeamPlayerException e) {
+				e.printStackTrace();
+				System.err.println("PlayerController: 球員尚未加入球隊。");
+			}
+		}
+		
+		return "redirect:/teamplayer/list/" + teamId;	
 	}
 }
