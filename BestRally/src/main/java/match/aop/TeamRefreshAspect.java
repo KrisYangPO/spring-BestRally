@@ -25,8 +25,6 @@ import match.service.TeamRefreshDataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 @Component
 @Aspect
 public class TeamRefreshAspect {
@@ -112,6 +110,12 @@ public class TeamRefreshAspect {
 //	}// end of AfterReturning
 
 	
+	/* @AfterReturning("@annotation(refresh)")
+	 * 這是 Spring AOP 的語法，用來定義一個 Advice（增強邏輯），當**某個方法成功執行完畢（沒有丟出例外）**後觸發這段程式碼。
+	 *  "@Annotation(refresh)" 是 Pointcut 表達式：表示攔截所有「有標註 @DoTeamRefresh 註解的方法」
+	 *  JoinPoint: AOP 的上下文物件，用來存取被攔截的方法、參數、名稱等資訊
+	 *  DoTeamRefresh refresh 將 refresh 交給 @Annotation(refresh)，AOP 就會知道要擷取哪些 @Annotation。
+	 */
 	
 	@AfterReturning("@annotation(refresh)")
 	public void afterModifyTeam(JoinPoint joinPoint, DoTeamRefresh refresh) {
