@@ -46,6 +46,9 @@ public class MatchReckonController {
 		
 		// Step2. 將每個 matchPlayer 對戰資訊紀錄至後端：
 		for(MatchPlayerDTO mp: matchPlayers) {
+			if(mp.getTotalMatch()==0) {
+				System.err.printf("MatchReckonController: 球員(%s)今日沒有參與任何球隊。", mp.getUserName());
+			}
 			try {
 				// 將 matchDTOs 儲存到後端。
 				getPlayerMatchDataService.GetMatchResult(mp);

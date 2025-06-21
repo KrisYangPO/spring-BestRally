@@ -77,7 +77,6 @@ public interface TeamPlayerRepository extends JpaRepository<TeamPlayer, Integer>
 			UPDATE `team_player`
 			SET win_rate = 100*(win_game*1.0/total) 
 			WHERE team_id =:teamId and player_id =:playerId 
-				AND total != 0
 			""", nativeQuery = true)
 	public void updateWinRate(Integer teamId, Integer playerId);
 	
@@ -87,9 +86,8 @@ public interface TeamPlayerRepository extends JpaRepository<TeamPlayer, Integer>
 	@Modifying
 	@Query(value = """
 			    UPDATE team_player
-			    SET win_game = :winGame, total = :total
+			    SET win_game =:winGame, total=:total
 			    WHERE team_id = :teamId AND player_id = :playerId
-			      AND total != 0
 			""", nativeQuery = true)
 	public void updateMatchData(Integer teamId, Integer playerId, Integer winGame, Integer total);
 	// ============================================================================================================================

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import match.annotation.DoTeamRefresh;
 import match.exception.TeamPlayerAlreadyExistException;
@@ -43,6 +44,8 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 	private TeamPlayerMapper teamPlayerMapper;
 	@Autowired
 	private TeamRefreshDataService teamRefreshDataService;
+	@Autowired
+	private EntityManager entityManager;
 	
 	
 	// 新增球隊球員身份，
@@ -228,6 +231,11 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 		
 		// Step4. 直接更新 winRate:
 		updateTeamPlayerWinRatio(teamId, playerId);
+		
+		// 強制 flush 寫入 DB
+		// 因為更新對象是 MatchPlayerDTO 他並不是 Entity，
+		// 所以可能無法觸法 Entity Manager
+	    entityManager.flush();
 	}
 
 	
