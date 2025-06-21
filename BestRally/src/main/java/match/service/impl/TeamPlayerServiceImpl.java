@@ -44,8 +44,17 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 	private TeamPlayerMapper teamPlayerMapper;
 	@Autowired
 	private TeamRefreshDataService teamRefreshDataService;
+	
+	/* Entity Manager:
+	 * 因為更新項目是 Java 物件：MatchPlayerDTO，
+	 * 並不是 @Entity 無法觸法 JPA Entity Manager 對他進行自動儲存至資料庫，
+	 * 就算呼叫方法取得資訊 JPA 也會不知道該怎麼做，
+	 * 因此需要額外在更新方法中加入 EntityManager，並在最後加入 flush 動作，
+	 * 就可強制將資料儲存在資料庫。
+	 */
+	
 	@Autowired
-	private EntityManager entityManager;
+	private EntityManager entityManager; 
 	
 	
 	// 新增球隊球員身份，
