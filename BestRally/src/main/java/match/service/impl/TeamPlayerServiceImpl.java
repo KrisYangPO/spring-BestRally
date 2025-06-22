@@ -42,8 +42,10 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
 	private TeamMapper teamMapper;
 	@Autowired
 	private TeamPlayerMapper teamPlayerMapper;
-	@Autowired
-	private TeamRefreshDataService teamRefreshDataService;
+	
+	// TeamRefreshDataService 已經透過 AOP 處理。
+//	@Autowired
+//	private TeamRefreshDataService teamRefreshDataService;
 	
 	/* Entity Manager:
 	 * 因為更新項目是 Java 物件：MatchPlayerDTO，
